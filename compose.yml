@@ -1,0 +1,17 @@
+# =============================================================================
+# compose.yml — `docs` (Docusaurus), static preview via Nginx
+# =============================================================================
+# Standalone:
+#   cd docs && docker compose -f compose.yml up -d --build
+# Included from the monorepo root:
+#   docker compose up -d --build   # combines core/compose.yml + group/compose.yml + docs/compose.yml
+# =============================================================================
+
+services:
+  docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sci-manager-docs
+    ports:
+      - "${DOCS_PORT:-8081}:80"
