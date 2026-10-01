@@ -138,3 +138,157 @@ test('10 new publication manual (Manager)', async ({ page }) => {
   await page.locator('#year').fill('2025');
   await shot(page, `${OUT}/02-core-features/10-publication-new-manual.png`);
 });
+
+// ── Events and contributions (11–18) ─────────────────────────────────────────
+
+/** Opens the first event of the given type (row badge text) that has contributions. */
+async function openEvent(page: Page, typeLabel: 'Congreso' | 'Divulgación') {
+  await page.goto(`${BASE}/${GROUP}/events`);
+  await settle(page);
+  const rows = page.locator('table tbody tr').filter({ hasText: typeLabel });
+  await expect(rows.first()).toBeVisible();
+  const withContributions = rows.filter({ hasNot: page.locator('td:last-child:has-text("0")') });
+  await ((await withContributions.count()) > 0 ? withContributions.first() : rows.first()).click();
+  await page.waitForURL(/\/events\/[^/]+$/);
+  await expect(page.getByText(/Nº de contribuciones: \d/)).toBeVisible({ timeout: 15_000 });
+  await settle(page);
+  return page.url().split('/events/')[1];
+}
+
+test('11 + 12 events list and filters', async ({ page }) => {
+  await page.goto(`${BASE}/${GROUP}/events`);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible();
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/11-events-list.png`);
+
+  await page.locator('button:has(svg.lucide-sliders-horizontal)').click();
+  await page.waitForTimeout(300);
+  await shot(page, `${OUT}/02-core-features/12-events-filters.png`);
+});
+
+test('13 + 14 new event conference / divulgation', async ({ page }) => {
+  await page.goto(`${BASE}/${GROUP}/events/new`);
+  await settle(page);
+  await page.locator('input').first().fill('Congreso Nacional de Nanotecnología 2026');
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/13-event-new.png`);
+
+  await page.getByRole('combobox').first().click();
+  await page.getByRole('option', { name: 'Divulgación' }).click();
+  const channel = page.getByRole('combobox').filter({ hasText: 'Canal de divulgación' });
+  await expect(channel).toBeVisible();
+  await highlight(channel);
+  await shot(page, `${OUT}/02-core-features/14-event-new-divulgation.png`);
+});
+
+test('15 event detail', async ({ page }) => {
+  await openEvent(page, 'Congreso');
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/15-event-detail.png`);
+});
+
+test('16 + 17 new contribution conference / divulgation', async ({ page }) => {
+  const confId = await openEvent(page, 'Congreso');
+  await page.goto(`${BASE}/${GROUP}/events/${confId}/contributions/new`);
+  await settle(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/16-contribution-new-conference.png`);
+
+  const divId = await openEvent(page, 'Divulgación');
+  await page.goto(`${BASE}/${GROUP}/events/${divId}/contributions/new`);
+  await settle(page);
+  await page.getByPlaceholder('Buscar autores por nombre…').fill('Manzanares');
+  await page.getByText('Manzanares, Laura').first().click();
+  await page.keyboard.press('Escape');
+  const role = page.getByRole('combobox', { name: 'Rol' }).first();
+  await expect(role).toBeVisible();
+  await highlight(role);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/17-contribution-new-divulgation.png`);
+});
+
+test('18 contribution detail with economic data', async ({ page }) => {
+  await openEvent(page, 'Congreso');
+  await page.locator('table tbody tr').first().click();
+  await page.waitForURL(/\/contributions\/[^/]+$/);
+  await expect(page.getByRole('heading', { name: 'Datos económicos' })).toBeVisible({ timeout: 15_000 });
+  await settle(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/18-contribution-detail.png`);
+});
+
+// ── Estancias (profile/stays) ────────────────────────────────────────────────
+const STAYS = `${BASE}/${GROUP}/profile/stays`;
+
+test('11 + 12 stays list and filters', async ({ page }) => {
+  await page.goto(STAYS);
+  await settle(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/11-stays-list.png`);
+
+  await page.locator('button:has(svg.lucide-sliders-horizontal)').click();
+  await page.waitForTimeout(300);
+  await shot(page, `${OUT}/02-core-features/12-stays-filters.png`);
+});
+
+test('13 new stay form', async ({ page }) => {
+  await page.goto(`${STAYS}/new`);
+  await settle(page);
+  await page.locator('input[type=date]').nth(0).fill('2025-09-01');
+  await page.locator('input[type=date]').nth(1).fill('2025-12-01');
+  await page.locator('textarea').fill('Caracterización de materiales nanoestructurados en el laboratorio de acogida.');
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/13-stay-new.png`);
+});
+
+test('14 stay detail', async ({ page }) => {
+  await page.goto(STAYS);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible();
+  await page.locator('table tbody tr').first().click();
+  await page.waitForURL(/\/profile\/stays\/[^/]+$/);
+  await expect(page.getByText('Fecha de inicio')).toBeVisible({ timeout: 15_000 });
+  await settle(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/14-stay-detail.png`);
+});
+
+test('19 + 20 academic direction list and filters', async ({ page }) => {
+  await page.goto(`${BASE}/${GROUP}/academic-direction`);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible();
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/19-academic-direction-list.png`);
+
+  await page.locator('button:has(svg.lucide-sliders-horizontal)').click();
+  await page.waitForTimeout(300);
+  await shot(page, `${OUT}/02-core-features/20-academic-direction-filters.png`);
+});
+
+test('21 academic direction detail', async ({ page }) => {
+  await page.goto(`${BASE}/${GROUP}/academic-direction`);
+  await settle(page);
+  await page.locator('table tbody tr').first().click();
+  await page.waitForURL(/\/academic-direction\/[^/]+$/);
+  await settle(page);
+  await expect(page.getByText('Universidad o institución').first()).toBeVisible({ timeout: 15_000 });
+  await settle(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/21-academic-direction-detail.png`);
+});
+
+test('22 new academic direction study (Manager)', async ({ page }) => {
+  await page.context().clearCookies();
+  await page.evaluate(() => { localStorage.clear(); sessionStorage.clear(); });
+  await page.addInitScript(() => {
+    localStorage.setItem('msoc-language', 'es');
+    localStorage.setItem('theme', 'light');
+  });
+  await login(page, 'manager@sciencemanager.demo');
+  await page.goto(`${BASE}/${GROUP}/academic-direction/new`);
+  await settle(page);
+  await page.locator('#study-work-title').waitFor({ state: 'visible' });
+  await highlight(page.locator('#study-work-title'));
+  await shot(page, `${OUT}/02-core-features/22-academic-direction-new.png`);
+});
