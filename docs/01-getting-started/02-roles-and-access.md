@@ -67,7 +67,7 @@ El **Manager** es quien **da de alta y gestiona los usuarios** del grupo: crea l
 - Hacer altas manuales que el resto de roles no tiene, como registrar un estudio a nombre de otra persona o añadir estancias a otros miembros.
 - Validar los datos económicos de las dietas de eventos.
 
-Consulta [Gestión de Usuarios](../04-administration/01-user-management.md) para el detalle del alta y la asignación de roles.
+Consulta [Gestión de Usuarios](../04-administration/02-user-management.md) para el detalle del alta y la asignación de roles.
 
 ## ✍️ Contributor y User \{#contributor-y-user}
 
