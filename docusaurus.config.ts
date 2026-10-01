@@ -29,6 +29,8 @@ const config: Config = {
     locales: ['es', 'en'],
   },
 
+  clientModules: ['./src/clientModules/imageZoom.ts'],
+
   markdown: {
     mermaid: true,
   },

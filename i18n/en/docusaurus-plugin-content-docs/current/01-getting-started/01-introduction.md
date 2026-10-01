@@ -10,7 +10,7 @@ sidebar_label: Introduction
 
 Instead of keeping that information scattered across spreadsheets, emails, and shared folders, Science Manager gives you a **single source of truth**: every piece of data is entered once and stays available for the whole academic life of the group — for lookup, tracking, and reporting.
 
-## What does this mean for you?
+## 🎯 What does this mean for you?
 
 If you belong to a research group, Science Manager lets you:
 
@@ -20,7 +20,7 @@ If you belong to a research group, Science Manager lets you:
 - **Stop chasing impact factors by hand**: the platform resolves them automatically from official citation data.
 - **Generate reports** (for accreditation, project memos, calls for funding) without collecting data from half a dozen different places.
 
-## A simple workflow
+## 🔄 A simple workflow
 
 Whether you're a principal investigator, a professor, or a PhD student, every research output follows the same path. There's no approval or validation circuit: everyone adds their own data and keeps refining it over time.
 
@@ -36,7 +36,32 @@ flowchart LR
 3. You can **edit it later** to complete or correct it: the platform is built for iterating on your data, not a one-time formality.
 4. At every point it's part of the group's **reports and statistics**, without anyone having to type it in again.
 
-## Who uses Science Manager?
+## 🗺️ How everything connects
+
+**Projects** are the backbone: almost everything the group produces is linked to one or more projects, and **team** members appear as authors or participants. **Reports** are built from there.
+
+```mermaid
+flowchart LR
+    EQ["👥 Team<br/>people and contracts"]
+    REV["📰 Journals<br/>JIF and quartile"]
+    subgraph PROD["Group output"]
+        direction TB
+        PUB["📚 Publications"]
+        PAT["💡 Patents"]
+        CAP["📖 Book chapters"]
+        EV["🎤 Events and contributions"]
+        EST["✈️ Research stays"]
+        INF["🔬 Infrastructure"]
+    end
+    PRY(["🗂️ Projects"])
+    INFO["📊 Reports"]
+    EQ -->|authors and participants| PROD
+    REV -->|metrics| PUB
+    PROD -->|are linked to| PRY
+    PRY --> INFO
+```
+
+## 👥 Who uses Science Manager?
 
 | Profile | What they do on the platform |
 |---|---|
@@ -45,7 +70,7 @@ flowchart LR
 | **PhD student** | Registers their contributions and keeps their profile linked to their thesis director. |
 | **Group administrator** | Manages users, imports data, and configures journals and funding entities. |
 
-## Next steps
+## 🚀 Next steps
 
 Continue with the Roles and Access Model section to understand what each profile can see and do, or jump straight to Research Projects if you already know your role.
 

@@ -8,7 +8,7 @@ sidebar_label: Equipo
 
 El módulo **Equipo** es el directorio del personal del grupo. Desde él consultas quién forma parte del grupo, su situación contractual actual y la ficha de cada persona, con sus estudios, estancias, publicaciones, proyectos y eventos.
 
-## Listado y búsqueda
+## 🔎 Listado y búsqueda \{#listado-y-búsqueda}
 
 Accede desde **Equipo → Equipo**. La tabla muestra, por cada persona, su **Miembro** (avatar, nombre y correo), la **Categoría** vigente, el **ORCID** y el **Estado**.
 
@@ -45,7 +45,7 @@ El botón de filtros despliega seis selectores. Todos se aplican al instante y s
 
 El botón de filtros muestra cuántos hay activos, y **Limpiar filtros** los elimina junto con la búsqueda.
 
-## Ficha de una persona
+## 🪪 Ficha de una persona \{#ficha-de-una-persona}
 
 La ficha se organiza en pestañas. Cada una tiene su propia dirección, así que puedes enlazarla o recargarla sin perder el sitio.
 
@@ -65,7 +65,9 @@ La ficha se organiza en pestañas. Cada una tiene su propia dirección, así que
 ![Pestaña Perfil académico](/img/docs/02-core-features/38-team-member-academic.png)
 *Pestaña **Perfil académico** con la titulación en curso de la persona.*
 
-:::info[Permisos requeridos]
+:::info[🔐 Permisos requeridos]
+
+Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/02-roles-and-access.md).
 
 | Acción | Quién puede |
 |---|---|
@@ -87,7 +89,7 @@ Si no eres Reviewer, Manager ni la propia persona, la ficha **no muestra** nacio
 
 :::
 
-## Editar el perfil de una persona
+## ✏️ Editar el perfil de una persona \{#editar-el-perfil-de-una-persona}
 
 Desde el menú de tres puntos del listado (**Editar**) o de la ficha (**Editar perfil**) se abre una página propia, con **Volver al perfil** para salir sin guardar.
 
@@ -113,7 +115,7 @@ Pulsa **Guardar Cambios** para confirmar o **Cancelar** para descartar.
 
 :::
 
-## Vinculaciones (contratos)
+## 📑 Vinculaciones (contratos) \{#vinculaciones-contratos}
 
 La categoría y el estado de cada persona salen de sus **vinculaciones**. El menú **Equipo → Vinculación con el Equipo** lista todas las de grupo, con su categoría, fechas y estado (**Activo** o **Finalizado**), y permite buscar por nombre.
 
@@ -121,6 +123,20 @@ La categoría y el estado de cada persona salen de sus **vinculaciones**. El men
 *Listado de vinculaciones: una persona puede tener varias, una por cada periodo.*
 
 Con el botón **Nueva Vinculación**, o desde el menú de tres puntos de la pestaña **Vinculaciones** de una ficha, se registra una nueva. Este listado solo está disponible para **Reviewer** y **Manager**.
+
+**Cómo se calcula el estado de una persona:**
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> Inactiva
+    Inactiva --> Activa: Se registra una vinculación vigente
+    Activa --> Inactiva: Vence la última vinculación
+    note right of Inactiva
+        Sin categoría visible
+        en el directorio
+    end note
+```
 
 :::tip[Cómo dar de baja a alguien del directorio]
 

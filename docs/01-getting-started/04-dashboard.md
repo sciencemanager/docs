@@ -11,7 +11,7 @@ Al iniciar sesión llegas al **Panel**: una vista de pájaro, en tiempo real, de
 ![Vista general del panel principal con las tarjetas de métricas, anuncios, próximos eventos, progreso de proyectos y eventos recientes](/img/docs/01-getting-started/01-dashboard-overview.png)
 *Panel principal de un grupo con datos de demostración.*
 
-## Tarjetas de métricas
+## 📊 Tarjetas de métricas \{#tarjetas-de-métricas}
 
 La fila superior resume de un vistazo los indicadores del grupo: **Proyectos**, **Publicaciones**, **Eventos**, **Infraestructura** y **Supervisión académica**. Es un carrusel: al pasar el ratón por encima avanza solo y también puedes arrastrarlo para ver el resto de módulos (patentes, capítulos de libro, etc.).
 
@@ -35,7 +35,18 @@ En la esquina superior derecha de las tarjetas hay un selector con cuatro opcion
 
 :::
 
-## Paneles inferiores
+**¿Sobre qué fecha se aplica cada filtro?**
+
+```mermaid
+flowchart LR
+    S["⏱️ Selector<br/>3M · 6M · 12M · Todo"]
+    S --> P["🗂️ Proyectos<br/>y 🎤 Eventos"]
+    S --> B["📚 Publicaciones"]
+    P --> P2["Actividad según sus fechas<br/>de inicio y fin"]
+    B --> B2["Fecha de registro<br/>en la plataforma"]
+```
+
+## 🧩 Paneles inferiores \{#paneles-inferiores}
 
 | Panel | Qué muestra |
 |---|---|

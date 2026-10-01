@@ -14,7 +14,7 @@ No es una lista aparte: reúne los estudios del **perfil académico** de cada pe
 
 :::
 
-## Listado y búsqueda
+## 🔎 Listado y búsqueda \{#listado-y-búsqueda}
 
 Accede desde **Investigación → Dirección académica**. La tabla muestra, para cada trabajo:
 
@@ -51,7 +51,7 @@ Pulsa **Aplicar filtros** para confirmarlos y **Limpiar filtros** para quitarlos
 ![Panel de filtros desplegado](/img/docs/02-core-features/20-academic-direction-filters.png)
 *Panel de filtros abierto sobre el listado.*
 
-## Consultar un trabajo
+## 📄 Consultar un trabajo \{#consultar-un-trabajo}
 
 La ficha de detalle muestra el título del trabajo, el estudiante, la titulación y su estado, los **directores** con su rol, el programa, la universidad, las fechas, la **calificación** y las **distinciones** (mención internacional y premio extraordinario), los **proyectos asociados** (con enlace) y quién registró el estudio.
 
@@ -62,9 +62,11 @@ El menú de tres puntos de la ficha da acceso a **Editar**, **Eliminar** y **Ver
 ![Ficha de un trabajo dirigido](/img/docs/02-core-features/21-academic-direction-detail.png)
 *Detalle de una tesis en curso con sus directores y proyecto asociado.*
 
-## Permisos requeridos
+## 🔐 Permisos requeridos \{#permisos-requeridos}
 
-:::info[Permisos requeridos]
+:::info[🔐 Permisos requeridos]
+
+Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/02-roles-and-access.md).
 
 | Acción | Quién puede |
 |---|---|
@@ -78,7 +80,7 @@ El menú de tres puntos de la ficha da acceso a **Editar**, **Eliminar** y **Ver
 
 Un estudio eliminado pasa a la papelera y deja de aparecer en el listado; un gestor puede restaurarlo.
 
-## Registrar un trabajo
+## ➕ Registrar un trabajo \{#registrar-un-trabajo}
 
 Hay dos caminos:
 
@@ -87,6 +89,38 @@ Hay dos caminos:
 
 ![Formulario de nuevo estudio](/img/docs/02-core-features/22-academic-direction-new.png)
 *Formulario para registrar un estudio a nombre de otra persona; el título del trabajo aparece resaltado.*
+
+**Dos caminos, un mismo registro:**
+
+```mermaid
+flowchart LR
+    subgraph A["Camino habitual"]
+        direction TB
+        A1["🎓 Mi perfil académico"] --> A2["Añadir estudio"] --> A3["Activar «¿Dirigido en<br/>este grupo?»"]
+    end
+    subgraph B["Camino del Manager"]
+        direction TB
+        B1["📋 Dirección académica"] --> B2["Añadir estudio<br/>y elegir Personal"] --> B3["Interruptor ya activado"]
+    end
+    A3 --> R(["📚 Registro de<br/>Dirección académica"])
+    B3 --> R
+```
+
+**Estados de un trabajo:**
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    state "En curso" as EC
+    [*] --> EC: Sin fecha de fin
+    EC --> Finalizado: Se rellena la fecha de fin
+    EC --> Abandonado: Se rellena la fecha de fin
+    Finalizado --> Calificado: Calificación y distinciones
+    note right of Calificado
+        Solo se califica
+        un trabajo Finalizado
+    end note
+```
 
 ### Campos y comportamiento dinámico
 

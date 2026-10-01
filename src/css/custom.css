@@ -28,3 +28,74 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Landing page (docs/index.mdx): hide sidebar chrome and widen the content */
+.docs-doc-id-index .theme-doc-sidebar-container,
+.docs-doc-id-index .theme-doc-toc-desktop,
+.docs-doc-id-index .pagination-nav {
+  display: none;
+}
+
+.docs-doc-id-index .theme-doc-breadcrumbs,
+.docs-doc-id-index .theme-doc-markdown > header {
+  display: none;
+}
+
+.docs-doc-id-index .row {
+  justify-content: center;
+}
+
+.docs-doc-id-index .row .col {
+  max-width: 70rem !important;
+}
+
+.docs-doc-id-index [class*='docItemCol'] {
+  flex: 0 0 100%;
+  max-width: 100% !important;
+}
+
+.docs-doc-id-index [class*='docMainContainer'] {
+  max-width: 100% !important;
+  flex-grow: 1;
+}
+
+/* All docs except the landing: justified text, smaller centered images with click-to-zoom */
+[class*='docs-doc-id-']:not(.docs-doc-id-index) .theme-doc-markdown p,
+[class*='docs-doc-id-']:not(.docs-doc-id-index) .theme-doc-markdown li,
+[class*='docs-doc-id-']:not(.docs-doc-id-index) .theme-doc-markdown .admonition-content {
+  text-align: justify;
+  hyphens: auto;
+}
+
+[class*='docs-doc-id-']:not(.docs-doc-id-index) .theme-doc-markdown p:has(> img) {
+  text-align: center;
+}
+
+[class*='docs-doc-id-']:not(.docs-doc-id-index) .theme-doc-markdown p > img {
+  display: block;
+  width: auto;
+  max-width: 70%;
+  max-height: 420px;
+  margin: 0 auto 0.5rem;
+  cursor: zoom-in;
+  border-radius: 6px;
+}
+
+.img-zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.82);
+  cursor: zoom-out;
+}
+
+.img-zoom-overlay img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 6px;
+  background: #fff;
+}

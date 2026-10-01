@@ -8,7 +8,15 @@ sidebar_label: Capítulos de Libro
 
 El módulo **Capítulos de Libro** reúne los capítulos publicados por el grupo en obras colectivas. Cada capítulo indica el libro en el que aparece, sus editores, editorial, ISBN, año y páginas, y se vincula a los **proyectos** que lo financiaron y a sus **autores**.
 
-## Listado, búsqueda y filtros
+```mermaid
+flowchart LR
+    CH(["📖 <b>Capítulo</b>"])
+    CH -->|"obligatorio"| LB["📕 Título del libro<br/>editores, editorial, ISBN, páginas"]
+    CH -->|"≥ 1 · obligatorio"| PR["🗂️ Proyectos asociados"]
+    CH -->|opcional| AU["👥 Autores"]
+```
+
+## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
 Accede desde **Investigación → Capítulos de Libro**. La tabla muestra el **título del capítulo**, los **autores** (avatares con sus iniciales), el **título del libro** y el **año**.
 
@@ -31,16 +39,18 @@ Pulsa **Aplicar filtros** para confirmarlos, **Cancelar** para cerrar el panel o
 ![Listado de capítulos de libro](/img/docs/02-core-features/27-book-chapters-list.png)
 *Listado de capítulos de libro del grupo, sin filtros.*
 
-## Consultar un capítulo
+## 📄 Consultar un capítulo \{#consultar-un-capítulo}
 
 La ficha muestra el título, la descripción, los **autores** (los vinculados a personal del grupo aparecen resaltados), el **título del libro**, los **editores**, la **editorial**, el **ISBN**, el **año** y las **páginas**, además de los **proyectos asociados**, que enlazan con la ficha de cada proyecto. Solo se muestran los datos que están informados. Al final, el **Historial de cambios** registra quién creó o modificó el capítulo y cuándo.
 
 ![Ficha de un capítulo de libro](/img/docs/02-core-features/29-book-chapter-detail.png)
 *Ficha de un capítulo con su libro, editorial, ISBN, páginas y proyecto asociado.*
 
-## Añadir un capítulo
+## ➕ Añadir un capítulo \{#añadir-un-capítulo}
 
-:::info[Permisos requeridos]
+:::info[🔐 Permisos requeridos]
+
+Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/02-roles-and-access.md).
 
 | Acción | Quién puede |
 |---|---|
@@ -80,7 +90,7 @@ Al pulsar **Crear Capítulo de Libro** se abre directamente la ficha del capítu
 
 :::
 
-## Editar o eliminar
+## ✏️ Editar o eliminar \{#editar-o-eliminar}
 
 Desde el menú de tres puntos de la fila o de la ficha, **Editar** abre el mismo formulario con los datos cargados. **Eliminar** solo está disponible para Managers y pide confirmación; el capítulo deja de aparecer en el listado.
 

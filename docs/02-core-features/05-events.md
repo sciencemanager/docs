@@ -13,7 +13,18 @@ El módulo **Eventos** registra la actividad de difusión del grupo. Se organiza
 
 El **tipo del evento decide cómo se rellenan sus contribuciones**, como se explica más abajo.
 
-## Listado, calendario y filtros
+```mermaid
+flowchart TB
+    EV(["🎪 <b>Evento</b><br/>fecha, lugar y ámbito"])
+    EV --> CG["🎓 <b>Congreso</b>"]
+    EV --> DV["📣 <b>Divulgación</b><br/>+ Canal de divulgación obligatorio"]
+    CG --> C1["Contribución<br/>un único Tipo de participación"]
+    DV --> C2["Contribución<br/>un Rol por cada autor"]
+    C1 --> X["📎 Documentos · 💶 Datos económicos"]
+    C2 --> X
+```
+
+## 🗓️ Listado, calendario y filtros \{#listado-calendario-y-filtros}
 
 Accede desde **Investigación → Eventos**. En la parte superior, un **calendario de tres meses** marca con un punto los días en que hay eventos; pulsa un día para ver solo los eventos que se celebran en esa fecha (los de varios días incluidos) y vuelve a pulsarlo, o usa **Quitar día**, para volver al listado completo.
 
@@ -32,7 +43,7 @@ El botón de filtros despliega un panel con ocho selectores: **Tipo**, **Autores
 ![Panel de filtros de eventos desplegado](/img/docs/02-core-features/12-events-filters.png)
 *Panel de filtros abierto sobre el listado.*
 
-## Consultar un evento y sus contribuciones
+## 📄 Consultar un evento y sus contribuciones \{#consultar-un-evento-y-sus-contribuciones}
 
 La ficha del evento muestra su tipo, ámbito, ubicación, fechas y número de contribuciones. Debajo, una tabla lista las **contribuciones** con sus **autores**, el **tipo** de participación y el **proyecto que financia la dieta**. Pulsa una contribución para ver su detalle completo.
 
@@ -41,9 +52,11 @@ La ficha del evento muestra su tipo, ámbito, ubicación, fechas y número de co
 
 El menú de tres puntos de la ficha ofrece **Editar evento**, **Añadir contribución** y **Eliminar evento**; las opciones que no puedes usar aparecen deshabilitadas.
 
-## Permisos requeridos
+## 🔐 Permisos requeridos \{#permisos-requeridos}
 
-:::info[Permisos requeridos]
+:::info[🔐 Permisos requeridos]
+
+Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/02-roles-and-access.md).
 
 | Acción | Quién puede |
 |---|---|
@@ -61,7 +74,7 @@ Un **Reviewer** puede crear eventos, pero solo editar los que creó él mismo; s
 
 :::
 
-## Crear un evento
+## ➕ Crear un evento \{#crear-un-evento}
 
 Pulsa **Nuevo evento** en el listado (solo visible si tienes permiso). Todos los campos son obligatorios:
 
@@ -87,7 +100,7 @@ Además, la **Fecha de fin** no puede ser anterior a la **Fecha de inicio**.
 ![Formulario de evento de divulgación con el campo Canal de divulgación resaltado](/img/docs/02-core-features/14-event-new-divulgation.png)
 *Al elegir Divulgación aparece el Canal de divulgación.*
 
-## Añadir una contribución
+## ➕ Añadir una contribución \{#añadir-una-contribución}
 
 Desde la ficha del evento, abre el menú de tres puntos y pulsa **Añadir contribución**. El formulario se adapta al tipo del evento:
 
@@ -123,7 +136,7 @@ El **Proyecto que financia la dieta** solo ofrece los proyectos que hayas elegid
 
 Los documentos (PDF, JPG o PNG, **máximo 10**) no se pueden adjuntar al crear la contribución: **guárdala primero** y súbelos desde su ficha o al editarla.
 
-## Datos económicos de una contribución
+## 💶 Datos económicos de una contribución \{#datos-económicos-de-una-contribución}
 
 La ficha de cada contribución incluye un panel **Datos económicos** con el **Identificador económico** y el **Importe**, y un estado:
 
@@ -135,6 +148,20 @@ La ficha de cada contribución incluye un panel **Datos económicos** con el **I
 
 ![Detalle de una contribución con el panel de datos económicos](/img/docs/02-core-features/18-contribution-detail.png)
 *Ficha de una contribución con el panel Datos económicos en estado No solicitado.*
+
+**Del registro a la validación económica:**
+
+```mermaid
+flowchart LR
+    C1["💶 Identificador económico<br/>e Importe"] --> OK
+    C2["📅 Evento ya terminado"] --> OK
+    C3["📄 Certificado de asistencia"] --> OK
+    C4["🧾 Solicitud de pago de viáticos"] --> OK
+    OK{"¿Las cuatro<br/>a la vez?"}
+    OK -->|No| N["🕓 No solicitado"]
+    OK -->|"Sí, automático"| P["⏳ Pendiente<br/>de validación"]
+    P -->|"Manager o IP / co-IP<br/>marca como validado"| V["✅ Validado<br/>ya no se edita"]
+```
 
 :::info[Cuándo pasa a Pendiente de validación]
 
@@ -151,7 +178,7 @@ Clasifica cada documento adjunto en el propio panel (**Certificado de asistencia
 
 Cuando el estado es **Pendiente de validación**, el **Manager** o el IP o co-IP del proyecto que financia la dieta ve el botón **Marcar como validado** y debe confirmar la acción. Una contribución sin proyecto financiador solo la puede validar un Manager.
 
-## Avisos de importación
+## ⚠️ Avisos de importación \{#avisos-de-importación}
 
 Los eventos y contribuciones cargados desde un CSV pueden llevar la nota **Notas de importación — pendiente de revisión** con los datos que faltaban. Un **Reviewer** o **Manager** corrige los datos y pulsa **Marcar como revisado** para descartar el aviso.
 

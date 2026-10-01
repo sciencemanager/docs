@@ -8,7 +8,7 @@ sidebar_label: Vinculación con el Equipo
 
 El módulo **Vinculación con el Equipo** registra la relación contractual de cada persona con el grupo: su categoría profesional (por ejemplo, *Estudiante Predoctoral* o *Catedrático de Universidad*), el tipo de vinculación, la dedicación, las fechas y, si procede, la entidad financiadora y el proyecto asociado. Cada registro es un **contrato** y una persona puede tener varios a lo largo del tiempo.
 
-## Listado, búsqueda y filtros
+## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
 Accede desde **Equipo → Vinculación con el Equipo**. La tabla muestra, para cada contrato:
 
@@ -37,7 +37,7 @@ Pulsa **Aplicar filtros** para confirmarlos y **Limpiar filtros** para eliminarl
 ![Panel de filtros desplegado sobre el listado](/img/docs/02-core-features/42-employment-filters.png)
 *Panel de filtros abierto.*
 
-## Consultar un contrato
+## 📄 Consultar un contrato \{#consultar-un-contrato}
 
 La ficha reúne el estado, el régimen y la dedicación, la persona, la categoría, el programa de financiación, la entidad financiadora, las fechas, el proyecto (con enlace a su ficha) y las notas. En los contratos con fecha de fin aparece además una barra de **Tiempo transcurrido**, que se resalta cuando se ha consumido el 90 % o más.
 
@@ -46,9 +46,28 @@ La ficha reúne el estado, el régimen y la dedicación, la persona, la categor�
 
 Si el contrato se ha ampliado con una adenda, la ficha muestra la **Fecha de Fin Efectiva** con la etiqueta *Ampliado por adenda*; la **Fecha de Fin** original no cambia.
 
-## Permisos requeridos
+**Estados de un contrato:**
 
-:::info[Permisos requeridos]
+```mermaid
+stateDiagram-v2
+    direction LR
+    state "Próximo a iniciar" as PI
+    [*] --> PI: Fecha de inicio futura
+    [*] --> Activo: Fecha de inicio pasada
+    PI --> Activo: Llega la fecha de inicio
+    Activo --> Activo: Adenda amplía la fecha de fin
+    Activo --> Finalizado: Llega la fecha de fin
+    note right of Activo
+        Los contratos permanentes
+        no tienen fecha de fin
+    end note
+```
+
+## 🔐 Permisos requeridos \{#permisos-requeridos}
+
+:::info[🔐 Permisos requeridos]
+
+Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/02-roles-and-access.md).
 
 | Acción | Quién puede |
 |---|---|
@@ -61,7 +80,7 @@ Los botones de creación y edición aparecen también a los **Reviewers**, pero 
 
 :::
 
-## Crear una vinculación
+## ➕ Crear una vinculación \{#crear-una-vinculación}
 
 Pulsa **Nueva Vinculación** (o, desde el perfil de una persona del equipo, la opción equivalente: en ese caso el campo **Personal** ya viene fijado).
 
@@ -76,6 +95,21 @@ Pulsa **Nueva Vinculación** (o, desde el perfil de una persona del equipo, la o
 6. Opcionalmente, rellena **Entidad Financiadora**, **Proyecto** (solo proyectos activos) y **Notas**.
 7. Pulsa **Guardar**.
 
+**Cómo se encadenan los campos:**
+
+```mermaid
+flowchart LR
+    A["👤 Personal"] --> B["📑 Vinculación<br/>tipo de contrato"]
+    B -->|"filtra"| C["🏷️ Categoría"]
+    C --> D{"¿La categoría exige<br/>programa?"}
+    D -->|Sí| E["💼 Programa de<br/>Financiación obligatorio"]
+    D -->|No| F
+    E --> F["⏱️ Dedicación y<br/>Fecha de inicio"]
+    F --> G{"¿Régimen<br/>permanente?"}
+    G -->|Sí| H["♾️ Sin fecha de fin"]
+    G -->|No| I["📅 Fecha de fin"]
+```
+
 :::warning[Reglas del formulario]
 
 - **Obligatorios:** **Personal**, **Categoría** y **Fecha de Inicio**, más **Programa de Financiación** cuando la categoría lo requiere. Mientras falte alguno, **Guardar** permanece desactivado.
@@ -87,7 +121,7 @@ Pulsa **Nueva Vinculación** (o, desde el perfil de una persona del equipo, la o
 ![Formulario con un régimen permanente: Fecha de Fin desactivada](/img/docs/02-core-features/45-employment-new-permanent.png)
 *Con **Profesorado Permanente** la **Fecha de Fin** queda desactivada.*
 
-## Editar, ampliar con una adenda y eliminar
+## ✏️ Editar, ampliar con una adenda y eliminar \{#editar-ampliar-con-una-adenda-y-eliminar}
 
 - **Editar:** abre el mismo formulario con los datos del contrato.
 - **Añadir Adenda:** amplía un contrato sin modificar su fecha de fin original. Indica la **Fecha de Firma**, la **Nueva Fecha de Fin** y el **Motivo de la Adenda** (los tres obligatorios); la **Modificación Económica** (importe en EUR) es opcional. A partir de ese momento el contrato se considera vigente hasta la nueva fecha.

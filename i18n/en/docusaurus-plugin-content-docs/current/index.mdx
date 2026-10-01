@@ -1,0 +1,32 @@
+---
+id: index
+slug: /
+title: Science Manager Documentation
+description: Official guide to Science Manager, the platform for managing your research group's scientific output.
+sidebar_label: Home
+sidebar_position: 0
+hide_table_of_contents: true
+pagination_next: null
+---
+
+import {Hero, Features} from '@site/src/components/Landing';
+
+<Hero
+  title="Science Manager"
+  tagline="Your research group's publications, projects, conferences and patents, all in one place."
+  actions={[
+    {label: 'Get started', to: '/getting-started/introduction'},
+    {label: 'Explore features', to: '/core-features/projects', variant: 'secondary'},
+  ]}
+/>
+
+<Features items={[
+  {icon: '🚀', title: 'Getting started', text: 'What Science Manager is, roles, access and how to find your way around.', to: '/getting-started/introduction'},
+  {icon: '📚', title: 'Features', text: 'Projects, publications, patents, mobility, events, team and more.', to: '/core-features/projects'},
+  {icon: '📊', title: 'Reports', text: 'Generate project and group reports from the data you have recorded.', to: '/reporting/project-reports'},
+  {icon: '⚙️', title: 'Group administration', text: 'Manage users, permissions and master data for your group.', to: '/administration/user-management'},
+]} />
+
+## A single source of truth
+
+Every piece of data is recorded once and stays available for lookup, tracking and reporting throughout the group's academic life. If this is your first visit, start with the [introduction](/getting-started/introduction).

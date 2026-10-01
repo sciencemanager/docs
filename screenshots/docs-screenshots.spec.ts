@@ -469,3 +469,63 @@ test('40 edit team member (Manager)', async ({ page }) => {
   await expect(page.locator('#profile-orcid')).toBeVisible({ timeout: 15_000 });
   await shot(page, `${TEAM}/40-team-member-edit.png`);
 });
+
+// ── Consulta → Revistas (Manager sees the management buttons) ───────────────
+const JOURNALS = `${BASE}/${GROUP}/consultation/journals`;
+
+async function asManager(page: Page) {
+  await page.context().clearCookies();
+  await page.evaluate(() => { localStorage.clear(); sessionStorage.clear(); });
+  await page.addInitScript(() => {
+    localStorage.setItem('msoc-language', 'es');
+    localStorage.setItem('theme', 'light');
+  });
+  await login(page, 'manager@sciencemanager.demo');
+}
+
+test('52 journals list', async ({ page }) => {
+  await asManager(page);
+  await page.goto(JOURNALS);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByText('Cargando revistas')).toHaveCount(0);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/52-journals-list.png`);
+});
+
+test('53 journals filters + no-JCR card', async ({ page }) => {
+  await asManager(page);
+  await page.goto(JOURNALS);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible({ timeout: 15_000 });
+  await page.locator('button:has(svg.lucide-sliders-horizontal)').click();
+  await page.waitForTimeout(400);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/53-journals-filters.png`);
+});
+
+test('54 journal detail', async ({ page }) => {
+  await asManager(page);
+  await page.goto(JOURNALS);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible({ timeout: 15_000 });
+  await page.locator('table tbody tr a[href*="/consultation/journals/"]').first().click();
+  await page.waitForURL(/\/consultation\/journals\/[^/]+$/);
+  await expect(page.getByText('Editorial').first()).toBeVisible({ timeout: 15_000 });
+  await settle(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/54-journal-detail.png`);
+});
+
+test('55 journals add row', async ({ page }) => {
+  await asManager(page);
+  await page.goto(JOURNALS);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible({ timeout: 15_000 });
+  await page.getByRole('button', { name: 'Añadir revista' }).click();
+  const input = page.getByPlaceholder('Nombre de la revista…');
+  await input.fill('Journal of Nanoscale Energy');
+  await highlight(input);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/55-journals-add.png`);
+});

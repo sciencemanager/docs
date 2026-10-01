@@ -1,14 +1,14 @@
 ---
 id: publications
-title: Publicaciones y Bibliometría
-sidebar_label: Publicaciones y Bibliometría
+title: Publicaciones
+sidebar_label: Publicaciones
 ---
 
 # Publicaciones y Bibliometría
 
 El módulo **Publicaciones** reúne todos los artículos científicos del grupo. Cada publicación se vincula a una o más **revistas**, a sus **autores** y a los **proyectos** que la financiaron, y muestra los indicadores bibliométricos de la revista (factor de impacto, cuartil y categoría).
 
-## Listado, búsqueda y filtros
+## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
 Accede desde **Investigación → Publicaciones**. La tabla muestra el **DOI**, el **título**, el **año**, la **revista** (abreviada) y la **fecha de creación**. Se ordena por año descendente y, dentro de cada año, de la más reciente a la más antigua. Un candado verde junto al título indica que la publicación tiene **acceso abierto**.
 
@@ -32,7 +32,7 @@ Pulsa **Aplicar filtros** para confirmarlos; **Limpiar filtros** los elimina. El
 ![Listado de publicaciones con el panel de filtros desplegado](/img/docs/02-core-features/07-publications-filters.png)
 *Panel de filtros abierto sobre el listado.*
 
-## Consultar una publicación
+## 📄 Consultar una publicación \{#consultar-una-publicación}
 
 La ficha de detalle muestra el título, el año, los autores en su orden de firma, el DOI (con botón para copiarlo), la revista, volumen, número y páginas, los datos de citación de la revista (**JIF**, cuartil y posición en su categoría) y los **proyectos asociados**. La pestaña **Documentos** contiene los ficheros adjuntos.
 
@@ -41,9 +41,11 @@ Los autores vinculados a personal del grupo aparecen resaltados; el resto son au
 ![Detalle de una publicación](/img/docs/02-core-features/09-publication-detail.png)
 *Ficha de una publicación con sus autores, revista, indicadores y proyectos asociados.*
 
-## Añadir una publicación
+## ➕ Añadir una publicación \{#añadir-una-publicación}
 
-:::info[Permisos requeridos]
+:::info[🔐 Permisos requeridos]
+
+Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/02-roles-and-access.md).
 
 | Acción | Quién puede |
 |---|---|
@@ -78,6 +80,25 @@ Pulsa **Nueva Publicación**. El formulario empieza con la sección **Importaci�
 
 :::
 
+**Así funciona el alta por DOI:**
+
+```mermaid
+flowchart TD
+    A["➕ Nueva Publicación"] --> B["Escribir el DOI y pulsar<br/>«Obtener información de Crossref»"]
+    B --> C{"¿Ya existe el DOI<br/>en el grupo?"}
+    C -->|Sí| D["⛔ Aviso con el título existente<br/>No se admiten duplicados"]
+    C -->|No| E{"¿Lo encuentra<br/>Crossref?"}
+    E -->|No| F["✍️ Creación manual<br/>solo Manager"]
+    E -->|Sí| G["📥 Se cargan título, año,<br/>autores y revista"]
+    F --> H
+    G --> H["🗂️ Elegir al menos un<br/>proyecto asociado"]
+    H --> I["👥 Revisar y reordenar autores"]
+    I --> J["💾 Guardar Publicación"]
+    J --> K{"¿La revista está<br/>en el catálogo?"}
+    K -->|Sí| L["📈 Se vincula y hereda<br/>JIF y cuartil"]
+    K -->|No| M["🔔 Se crea y se avisa<br/>a los gestores"]
+```
+
 ### Autores y revista
 
 - **Autores:** se precargan desde Crossref en su orden original y puedes arrastrarlos para reordenarlos. Si un autor coincide con personal del grupo (por apellido), se asocia automáticamente; en caso contrario puedes **Asociar usuario** manualmente. Los autores no vinculados se crean como autores externos al guardar.
@@ -93,7 +114,7 @@ Los **Managers** ven en la sección de DOI el enlace **Creación manual (sin DOI
 
 Además de los campos de importación, aquí se rellenan a mano el volumen, número, páginas, año, URL, la revista (elegida del catálogo o escribiendo el nombre de una nueva), los autores y los enlaces.
 
-## Editar o eliminar
+## ✏️ Editar o eliminar \{#editar-o-eliminar}
 
 Desde el menú de la fila o desde la ficha (menú de tres puntos) puedes **Editar** si eres quien creó la publicación o tienes rol Reviewer o superior. El DOI no puede modificarse, y los datos de factor de impacto se gestionan automáticamente. Mientras editas puedes pulsar **Actualizar desde Crossref** para refrescar los metadatos y revisarlos antes de guardar. **Eliminar** solo está disponible para Managers y pide confirmación.
 

@@ -8,7 +8,15 @@ sidebar_label: Patentes
 
 El módulo **Patentes** recoge los resultados de investigación del grupo protegidos mediante patente. Cada patente se vincula a uno o más **proyectos**, a sus **autores** (inventores) y guarda su número, país, fecha de registro y titular.
 
-## Listado, búsqueda y filtros
+```mermaid
+flowchart LR
+    PA(["💡 <b>Patente</b><br/>número, país, fecha, titular"])
+    PA -->|"≥ 1 · obligatorio"| PR["🗂️ Proyectos asociados"]
+    PA -->|opcional| AU["👥 Autores / inventores"]
+    AU -.-> UP["personal del grupo<br/>resaltado en la ficha"]
+```
+
+## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
 Accede desde **Investigación → Patentes**. La tabla muestra el **título**, los **autores** (avatares con sus iniciales), el **número de patente**, el **país** y el **año** de registro. Si un dato no está informado aparece un guion (—).
 
@@ -31,16 +39,18 @@ Pulsa **Aplicar filtros** para confirmarlos, **Cancelar** para cerrar el panel o
 ![Listado de patentes](/img/docs/02-core-features/23-patents-list.png)
 *Listado de patentes del grupo, sin filtros.*
 
-## Consultar una patente
+## 📄 Consultar una patente \{#consultar-una-patente}
 
 La ficha muestra el título, la descripción, los **autores** (los vinculados a personal del grupo aparecen resaltados), el **número de patente**, el **país**, la **fecha de registro**, el **titular** y los **proyectos asociados**, que enlazan con la ficha de cada proyecto. Al final, el **Historial de cambios** registra quién creó o modificó la patente y cuándo.
 
 ![Ficha de una patente](/img/docs/02-core-features/25-patent-detail.png)
 *Ficha de una patente con sus autores, datos de registro y proyecto asociado.*
 
-## Añadir una patente
+## ➕ Añadir una patente \{#añadir-una-patente}
 
-:::info[Permisos requeridos]
+:::info[🔐 Permisos requeridos]
+
+Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/02-roles-and-access.md).
 
 | Acción | Quién puede |
 |---|---|
@@ -78,7 +88,7 @@ Al pulsar **Crear Patente** se abre directamente la ficha de la patente creada. 
 
 :::
 
-## Editar o eliminar
+## ✏️ Editar o eliminar \{#editar-o-eliminar}
 
 Desde el menú de tres puntos de la fila o de la ficha, **Editar** abre el mismo formulario con los datos cargados (el botón es **Guardar**). **Eliminar** solo está disponible para Managers y pide confirmación; la patente deja de aparecer en el listado.
 

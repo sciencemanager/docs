@@ -8,7 +8,7 @@ sidebar_label: Infraestructura e Inventario
 
 El módulo **Infraestructura** es el inventario del equipamiento científico del grupo: microscopios, difractómetros, centrífugas y cualquier otro equipo adquirido con fondos de proyectos. Cada **activo** guarda su descripción, el importe de compra, la sala donde está, los proyectos que lo financiaron y una **foto de la pegatina de inventario** que sirve como evidencia en las auditorías.
 
-## Listado, búsqueda y filtros
+## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
 Accede desde **Investigación → Infraestructura**. Todos los usuarios del grupo pueden consultar el inventario. Los activos se muestran como tarjetas con la foto de la pegatina, el nombre, la ubicación, el importe de compra y el número de proyectos que lo financian.
 
@@ -30,16 +30,18 @@ Los filtros y la página se guardan en la dirección del navegador. Copia la URL
 
 En el filtro **Ubicación** solo se pueden elegir salas que ya existen; para registrar una sala nueva hay que hacerlo al crear o editar un activo.
 
-## La ficha de un activo
+## 📄 La ficha de un activo \{#la-ficha-de-un-activo}
 
 Al pulsar una tarjeta se abre la ficha con la foto de la pegatina a tamaño completo, el nombre, la descripción, el importe de compra, la ubicación, los **Proyectos financiadores** (cada uno es un enlace a su proyecto) y quién lo registró.
 
 ![Ficha de un activo con la foto de la pegatina y sus datos](/img/docs/02-core-features/49-infrastructure-detail.png)
 *Ficha del activo. El menú de tres puntos (arriba a la derecha) ofrece **Editar** y **Eliminar** según tu rol.*
 
-## Permisos requeridos
+## 🔐 Permisos requeridos \{#permisos-requeridos}
 
-:::info[Permisos requeridos]
+:::info[🔐 Permisos requeridos]
+
+Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/02-roles-and-access.md).
 
 | Acción | User | Contributor | Reviewer | Manager |
 |---|:---:|:---:|:---:|:---:|
@@ -54,7 +56,18 @@ Un **Contributor** solo puede modificar los activos que él mismo registró. Si 
 
 :::
 
-## Registrar un nuevo activo
+**Ciclo de vida de un activo:**
+
+```mermaid
+flowchart LR
+    N["➕ Nuevo activo<br/>datos + foto de la pegatina"] --> F(["📄 Ficha del activo"])
+    F -->|"Editar → Guardar"| E["✏️ Cambian los datos<br/>la foto no se toca"]
+    F -->|"Sustituir foto"| P["📸 Foto nueva<br/>la anterior queda como evidencia"]
+    F -->|"Manager: Eliminar"| T["🗑️ Papelera"]
+    T -->|Restaurar| F
+```
+
+## ➕ Registrar un nuevo activo \{#registrar-un-nuevo-activo}
 
 Pulsa **Nuevo activo**, rellena el formulario y confirma con **Guardar**. Todos los campos son obligatorios.
 
@@ -83,7 +96,7 @@ El activo y su foto se envían juntos al pulsar **Guardar**; no existe un paso i
 
 Al guardar, el sistema abre directamente la ficha del activo recién creado.
 
-## Editar un activo
+## ✏️ Editar un activo \{#editar-un-activo}
 
 Desde la ficha, abre el menú de tres puntos y elige **Editar**. El formulario se carga con los datos actuales y se guarda con **Guardar**.
 
@@ -101,11 +114,11 @@ Al sustituir la foto de la pegatina, la imagen anterior se conserva como evidenc
 
 :::
 
-## Eliminar un activo
+## 🗑️ Eliminar un activo \{#eliminar-un-activo}
 
 Solo el **Manager** ve la opción **Eliminar** en el menú de la ficha. Tras confirmar en el cuadro de diálogo, el activo deja de aparecer en el inventario y pasa a la **Papelera** (Administración → Papelera), desde donde un Manager puede restaurarlo.
 
-## Estados vacíos y errores
+## 🚧 Estados vacíos y errores \{#estados-vacíos-y-errores}
 
 - **«Aún no hay equipamiento registrado.»** El grupo todavía no tiene activos. Quien tiene permiso de creación ve aquí el botón **Nuevo activo**.
 - **«Ningún activo coincide con los filtros aplicados.»** Pulsa **Limpiar filtros** para volver al listado completo.

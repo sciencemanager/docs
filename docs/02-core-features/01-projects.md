@@ -8,7 +8,7 @@ sidebar_label: Proyectos de Investigación
 
 El módulo **Proyectos** es el registro histórico completo del grupo: incluye los proyectos **activos** y los **finalizados**, y también **todas las solicitudes** presentadas a lo largo del tiempo, tanto las concedidas como las denegadas o aún pendientes de resolución.
 
-## Listado, búsqueda y filtros
+## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
 Accede desde **Investigación → Proyectos**. La tabla muestra el código, el título con su entidad financiadora y fechas, el investigador principal (IP), el importe y el avance temporal de cada proyecto.
 
@@ -19,9 +19,11 @@ Accede desde **Investigación → Proyectos**. La tabla muestra el código, el t
 - **Filtros avanzados:** el botón de filtros despliega un panel con **Entidad financiadora**, **Investigador**, **Año**, **Código** y **Estado** (activo / finalizado). Pulsa **Aplicar filtros** para confirmarlos; **Limpiar** los elimina.
 - Los proyectos activos aparecen primero.
 
-## Crear un nuevo proyecto
+## ➕ Crear un nuevo proyecto \{#crear-un-nuevo-proyecto}
 
-:::info[Permisos requeridos]
+:::info[🔐 Permisos requeridos]
+
+Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/02-roles-and-access.md).
 
 La creación y edición de proyectos está disponible para los roles **Reviewer** y **Manager**. Para el resto de usuarios el botón **Nuevo Proyecto** no aparece.
 
@@ -45,6 +47,25 @@ En Science Manager se registran **todas las peticiones de proyectos** del grupo,
 
 ![Formulario de nuevo proyecto con estado Pendiente](/img/docs/02-core-features/04-project-new-pending.png)
 *Formulario con el estado «Pendiente»: las fechas y el importe final todavía no se exigen.*
+
+**Ciclo de vida de una solicitud:**
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> Pendiente: Se presenta la solicitud
+    Pendiente --> Aprobado: Se concede
+    Pendiente --> Denegado: No se concede
+    Aprobado --> [*]
+    Denegado --> [*]
+    note right of Aprobado
+        Exige fechas, importe final
+        confirmado e ID económico
+    end note
+    note right of Denegado
+        Exige fechas de inicio y fin
+    end note
+```
 
 ### 3. El formulario cambia según el estado
 

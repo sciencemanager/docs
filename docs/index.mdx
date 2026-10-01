@@ -1,0 +1,32 @@
+---
+id: index
+slug: /
+title: Documentación de Science Manager
+description: Guía oficial de Science Manager, la plataforma para gestionar la producción científica de tu grupo de investigación.
+sidebar_label: Inicio
+sidebar_position: 0
+hide_table_of_contents: true
+pagination_next: null
+---
+
+import {Hero, Features} from '@site/src/components/Landing';
+
+<Hero
+  title="Science Manager"
+  tagline="Publicaciones, proyectos, congresos y patentes de tu grupo de investigación, en un único lugar."
+  actions={[
+    {label: 'Empezar', to: '/getting-started/introduction'},
+    {label: 'Ver funcionalidades', to: '/core-features/projects', variant: 'secondary'},
+  ]}
+/>
+
+<Features items={[
+  {icon: '🚀', title: 'Primeros pasos', text: 'Qué es Science Manager, roles, accesos y cómo moverte por el panel.', to: '/getting-started/introduction'},
+  {icon: '📚', title: 'Funcionalidades', text: 'Proyectos, publicaciones, patentes, movilidad, eventos, equipo y más.', to: '/core-features/projects'},
+  {icon: '📊', title: 'Informes', text: 'Genera informes de proyecto y de grupo a partir de los datos registrados.', to: '/reporting/project-reports'},
+  {icon: '⚙️', title: 'Gestión del grupo', text: 'Administra usuarios, permisos y datos maestros de tu grupo.', to: '/administration/user-management'},
+]} />
+
+## 🎯 Un único punto de verdad
+
+Cada dato se registra una vez y queda disponible para consulta, seguimiento y elaboración de informes durante toda la vida académica del grupo. Si es tu primera vez, empieza por la [introducción](/getting-started/introduction).
