@@ -1,12 +1,14 @@
 ---
 id: introduction
 title: Introducción a Science Manager
-sidebar_label: Introducción
+sidebar_label: Por donde empezar
 ---
 
 # Introducción a Science Manager
 
 **Science Manager** es la plataforma donde tu grupo de investigación reúne, en un único lugar, todo lo que produce: artículos científicos, proyectos, congresos, patentes, actividades de divulgación y los perfiles de cada investigador.
+
+![Preview](/img/docs/01-getting-started/undraw_docusaurus_react.svg)
 
 En lugar de tener esa información repartida entre hojas de cálculo, correos electrónicos y carpetas compartidas, Science Manager ofrece un **único punto de verdad**: cada dato se registra una vez y queda disponible para toda la vida académica del grupo — consulta, seguimiento y elaboración de informes.
 

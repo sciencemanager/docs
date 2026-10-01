@@ -66,23 +66,17 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/imagotipo-landscape-light.webp',
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Science Manager',
+      title: 'Science Manager | Docs',
       logo: {
         alt: 'Science Manager Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.webp',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'docsSidebar',
-          position: 'left',
-          label: 'Documentación',
-        },
         {type: 'localeDropdown', position: 'right'},
       ],
     },

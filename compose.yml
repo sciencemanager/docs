@@ -34,19 +34,3 @@ services:
       # so the container's Linux binaries never clash with the host's.
       - ./:/app
       - /app/node_modules
-
-  docs-en:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    container_name: sci-manager-docs-en
-    command: ["npm", "run", "start", "--", "--host", "0.0.0.0", "--locale", "en"]
-    environment:
-      DOCKER_CONTAINER: "true"
-      CHOKIDAR_USEPOLLING: "true"
-      CHOKIDAR_INTERVAL: "300"
-    ports:
-      - "${DOCS_EN_PORT:-8082}:3000"
-    volumes:
-      - ./:/app
-      - /app/node_modules
