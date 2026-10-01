@@ -22,26 +22,25 @@ If you belong to a research group, Science Manager lets you:
 
 ## A simple workflow
 
-Whether you're a principal investigator, a professor, or a PhD student, every research output follows the same path.
+Whether you're a principal investigator, a professor, or a PhD student, every research output follows the same path. There's no approval or validation circuit: everyone adds their own data and keeps refining it over time.
 
 ```mermaid
 flowchart LR
-    A[Researcher<br/>registers a result] --> B{Group lead<br/>reviews it}
-    B -- Approved --> C[Linked to the<br/>project and the researcher]
-    B -- Rejected --> A
+    A[Researcher adds<br/>a result] --> B[Available<br/>right away]
+    B --> C[Completed or corrected<br/>later if needed]
     C --> D[Available for<br/>reports and statistics]
 ```
 
-1. You **register** a publication, conference, patent, or any other result.
-2. It stays *pending* until the principal investigator or the group administrator **reviews and approves** it.
-3. Once approved, the result is **linked** to you, to the corresponding project, and, if applicable, to the journal — with its impact factor and quartile already resolved.
-4. From there, it becomes part of the group's **reports and statistics**, without anyone having to type it in again.
+1. You **add** a publication, conference, patent, or any other result.
+2. It's **available right away**, linked to you, to the corresponding project, and, if applicable, to the journal — with its impact factor and quartile already resolved.
+3. You can **edit it later** to complete or correct it: the platform is built for iterating on your data, not a one-time formality.
+4. At every point it's part of the group's **reports and statistics**, without anyone having to type it in again.
 
 ## Who uses Science Manager?
 
 | Profile | What they do on the platform |
 |---|---|
-| **Principal Investigator (PI)** | Oversees the group's output, approves activities, and checks impact indicators. |
+| **Principal Investigator (PI)** | Oversees the group's output and checks impact indicators. |
 | **Professor / Researcher** | Registers their publications and results, keeps their academic profile current. |
 | **PhD student** | Registers their contributions and keeps their profile linked to their thesis director. |
 | **Group administrator** | Manages users, imports data, and configures journals and funding entities. |

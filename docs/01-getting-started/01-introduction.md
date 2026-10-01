@@ -22,26 +22,25 @@ Si perteneces a un grupo de investigación, Science Manager te permite:
 
 ## Un flujo de trabajo sencillo
 
-Da igual si eres investigador principal, profesor o estudiante de doctorado: el ciclo de vida de cualquier resultado de investigación sigue siempre el mismo camino.
+Da igual si eres investigador principal, profesor o estudiante de doctorado: el ciclo de vida de cualquier resultado de investigación sigue siempre el mismo camino. No existe un circuito de validación o aprobación: cada uno añade su información y la va completando según avanza.
 
 ```mermaid
 flowchart LR
-    A[Investigador<br/>registra un resultado] --> B{Responsable del grupo<br/>revisa}
-    B -- Aprobado --> C[Queda vinculado al<br/>proyecto y al investigador]
-    B -- Rechazado --> A
+    A[Investigador añade<br/>un resultado] --> B[Queda disponible<br/>al instante]
+    B --> C[Se completa o corrige<br/>más adelante si hace falta]
     C --> D[Disponible para<br/>informes y estadísticas]
 ```
 
-1. **Registras** una publicación, congreso, patente o cualquier otro resultado.
-2. Queda en estado *pendiente* hasta que el investigador principal o el administrador del grupo lo **revisa y aprueba**.
-3. Una vez aprobado, el resultado queda **vinculado** a ti, al proyecto correspondiente y, si aplica, a la revista — con su factor de impacto y cuartil ya resueltos.
-4. A partir de ahí, forma parte de los **informes y estadísticas** del grupo, sin que nadie tenga que volver a teclearlo.
+1. **Añades** una publicación, congreso, patente o cualquier otro resultado.
+2. Queda **disponible de inmediato**, vinculado a ti, al proyecto correspondiente y, si aplica, a la revista — con su factor de impacto y cuartil ya resueltos.
+3. Puedes **volver a editarlo** más adelante para completarlo o corregirlo: la plataforma está pensada para ir iterando sobre los datos, no para un trámite de una sola vez.
+4. En todo momento forma parte de los **informes y estadísticas** del grupo, sin que nadie tenga que volver a teclearlo.
 
 ## ¿Quién usa Science Manager?
 
 | Perfil | Qué hace en la plataforma |
 |---|---|
-| **Investigador principal (IP)** | Supervisa la producción del grupo, aprueba actividades y consulta indicadores de impacto. |
+| **Investigador principal (IP)** | Supervisa la producción del grupo y consulta indicadores de impacto. |
 | **Profesor / Investigador** | Registra sus publicaciones y resultados, mantiene su perfil académico al día. |
 | **Estudiante de doctorado** | Registra sus contribuciones y mantiene su perfil vinculado a su director de tesis. |
 | **Administrador del grupo** | Gestiona usuarios, importa datos y configura revistas y entidades financiadoras. |
