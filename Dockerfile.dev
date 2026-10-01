@@ -1,0 +1,21 @@
+# Dev-only image for the `docs` (Docusaurus) site, run via docs/compose.yml
+# (standalone or included by the monorepo root docker-compose.yml).
+# NOT used for production builds — see docs/Dockerfile for the Nginx static build.
+FROM node:20-alpine
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+# Signals Docusaurus's chokidar-based content watcher to poll (bind mounts
+# don't forward host inotify events into the container).
+ENV DOCKER_CONTAINER=1
+ENV CHOKIDAR_USEPOLLING=true
+ENV CHOKIDAR_INTERVAL=300
+
+EXPOSE 3000
+
+# --host is required so the dev server binds 0.0.0.0 instead of localhost inside the container
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]

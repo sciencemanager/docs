@@ -1,17 +1,31 @@
 # =============================================================================
-# compose.yml — `docs` (Docusaurus), static preview via Nginx
+# compose.yml — `docs` (Docusaurus), dev mode (hot reload)
 # =============================================================================
 # Standalone:
 #   cd docs && docker compose -f compose.yml up -d --build
 # Included from the monorepo root:
 #   docker compose up -d --build   # combines core/compose.yml + group/compose.yml + docs/compose.yml
+#
+# This runs the Docusaurus dev server (docs/Dockerfile.dev), not the
+# production Nginx build (docs/Dockerfile) — that one is used for the
+# K8s deployment image, see docs/.github/workflows/deploy.yml.
 # =============================================================================
 
 services:
   docs:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: sci-manager-docs
+    environment:
+      # bind mounts don't forward host inotify events, so Docusaurus needs polling
+      DOCKER_CONTAINER: "true"
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: "300"
     ports:
-      - "${DOCS_PORT:-8081}:80"
+      - "${DOCS_PORT:-8081}:3000"
+    volumes:
+      # Bind mount for live reload; node_modules stays in an anonymous volume
+      # so the container's Linux binaries never clash with the host's.
+      - ./:/app
+      - /app/node_modules
