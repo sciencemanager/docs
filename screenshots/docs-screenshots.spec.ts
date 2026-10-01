@@ -31,6 +31,7 @@ async function shot(page: Page, path: string) {
   const h = await page.evaluate(() => document.documentElement.scrollHeight);
   await page.setViewportSize({ width: 1440, height: Math.max(900, h) });
   await page.waitForTimeout(300);
+  await expect(page.locator('.animate-pulse')).toHaveCount(0, { timeout: 15_000 });
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path });
 }
@@ -291,4 +292,180 @@ test('22 new academic direction study (Manager)', async ({ page }) => {
   await page.locator('#study-work-title').waitFor({ state: 'visible' });
   await highlight(page.locator('#study-work-title'));
   await shot(page, `${OUT}/02-core-features/22-academic-direction-new.png`);
+});
+
+/** Patents and book chapters share the same list / detail / form layout. */
+const OUTPUTS = [
+  { slug: 'patents', n: 23, name: 'patent', detailRe: /\/patents\/[^/]+$/, field: 'Número de patente', newId: '#patentNumber' },
+  { slug: 'book-chapters', n: 27, name: 'book-chapter', detailRe: /\/book-chapters\/[^/]+$/, field: 'Título del libro', newId: '#bookTitle' },
+];
+
+for (const o of OUTPUTS) {
+  test(`${o.n} + ${o.n + 1} ${o.slug} list and filters`, async ({ page }) => {
+    await page.goto(`${BASE}/${GROUP}/${o.slug}`);
+    await settle(page);
+    await expect(page.locator('table tbody tr').first()).toBeVisible();
+    await page.mouse.move(700, 700);
+    await shot(page, `${OUT}/02-core-features/${o.n}-${o.name}s-list.png`);
+
+    await page.locator('button:has(svg.lucide-sliders-horizontal)').click();
+    await page.waitForTimeout(300);
+    await shot(page, `${OUT}/02-core-features/${o.n + 1}-${o.name}s-filters.png`);
+  });
+
+  test(`${o.n + 2} ${o.slug} detail`, async ({ page }) => {
+    await page.goto(`${BASE}/${GROUP}/${o.slug}`);
+    await settle(page);
+    await page.locator('table tbody tr').first().click();
+    await page.waitForURL(o.detailRe);
+    await expect(page.getByText(o.field).first()).toBeVisible({ timeout: 15_000 });
+    await settle(page);
+    await expect(page.getByText('Cargando historial')).toHaveCount(0, { timeout: 15_000 });
+    // The API does not expose createdAt for these entities yet (UI shows "Invalid Date"); keep it out of the docs image.
+    await page.getByText('Creado', { exact: true }).first().locator('xpath=..').evaluate((n) => ((n as HTMLElement).style.visibility = 'hidden'));
+    await page.mouse.move(700, 700);
+    await shot(page, `${OUT}/02-core-features/${o.n + 2}-${o.name}-detail.png`);
+  });
+
+  test(`${o.n + 3} new ${o.name} form`, async ({ page }) => {
+    await page.goto(`${BASE}/${GROUP}/${o.slug}/new`);
+    await settle(page);
+    await page.locator('#title').waitFor({ state: 'visible' });
+    await highlight(page.locator('#title'));
+    await highlight(page.getByText('Proyectos asociados').first());
+    await shot(page, `${OUT}/02-core-features/${o.n + 3}-${o.name}-new.png`);
+  });
+}
+
+/**
+ * Demo fixtures create the sticker Document rows but no stored file, so the
+ * authenticated download 404s. Serve a generated sticker instead of touching data.
+ */
+async function mockStickerPhotos(page: Page) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320"><rect width="480" height="320" fill="#e8eef3"/><rect x="90" y="70" width="300" height="180" rx="10" fill="#fff" stroke="#1e8a86" stroke-width="4"/><text x="240" y="130" font-family="Arial" font-size="20" text-anchor="middle" fill="#1e8a86">SCIENCE MANAGER</text><text x="240" y="175" font-family="Arial" font-size="30" font-weight="bold" text-anchor="middle" fill="#222">INV-0042</text><text x="240" y="215" font-family="Arial" font-size="16" text-anchor="middle" fill="#666">Inventario del grupo</text></svg>`;
+  await page.route('**/api/documents/*/download', (route) =>
+    route.fulfill({ status: 200, contentType: 'image/svg+xml', body: svg }));
+}
+
+/** Infrastructure & inventory: card grid, filters, detail, create and edit forms. */
+test('47 + 48 infrastructure list and filters', async ({ page }) => {
+  await mockStickerPhotos(page);
+  await page.goto(`${BASE}/${GROUP}/infrastructure`);
+  await settle(page);
+  await expect(page.locator('a[href*="/infrastructure/"]:not([href$="/new"])').first()).toBeVisible({ timeout: 15_000 });
+  await page.waitForTimeout(1500);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/47-infrastructure-list.png`);
+
+  await page.locator('button:has(svg.lucide-sliders-horizontal)').click();
+  await page.waitForTimeout(300);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/48-infrastructure-filters.png`);
+});
+
+test('49 infrastructure detail', async ({ page }) => {
+  await mockStickerPhotos(page);
+  await page.goto(`${BASE}/${GROUP}/infrastructure`);
+  await settle(page);
+  await page.locator('a[href*="/infrastructure/"]:not([href$="/new"])').first().click();
+  await page.waitForURL(/\/infrastructure\/[^/]+$/);
+  await expect(page.getByText('Foto de la pegatina de inventario')).toBeVisible({ timeout: 15_000 });
+  await page.waitForTimeout(1500);
+  await settle(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/49-infrastructure-detail.png`);
+});
+
+test('50 new asset form', async ({ page }) => {
+  await page.goto(`${BASE}/${GROUP}/infrastructure/new`);
+  await settle(page);
+  await page.getByPlaceholder('Denominación oficial del equipo').waitFor({ state: 'visible' });
+  await page.getByPlaceholder('Denominación oficial del equipo').fill('Espectrómetro Raman confocal');
+  await page.getByPlaceholder('Características técnicas, número de serie…').fill('Láser de 532 nm, número de serie RM-20418.');
+  await page.getByPlaceholder('0.00').fill('96500,00');
+  await highlight(page.getByText('Foto de la pegatina de inventario').locator('xpath=..'));
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/50-infrastructure-new.png`);
+});
+
+test('51 edit asset form', async ({ page }) => {
+  await mockStickerPhotos(page);
+  await page.goto(`${BASE}/${GROUP}/infrastructure`);
+  await settle(page);
+  await page.locator('a[href*="/infrastructure/"]:not([href$="/new"])').first().click();
+  await page.waitForURL(/\/infrastructure\/[^/]+$/);
+  await settle(page);
+  await page.goto(`${page.url()}/edit`);
+  await settle(page);
+  await expect(page.getByText('Sustituir la foto de la pegatina')).toBeVisible({ timeout: 15_000 });
+  await highlight(page.getByText('Sustituir la foto de la pegatina').locator('xpath=ancestor::div[contains(@class,"rounded-lg")][1]'));
+  await page.mouse.move(700, 700);
+  await shot(page, `${OUT}/02-core-features/51-infrastructure-edit.png`);
+});
+
+const TEAM = `${OUT}/02-core-features`;
+
+/** The real @uclm.es account must never appear in a capture (DOCS_PLAYBOOK §4). */
+async function hideRealAccount(page: Page) {
+  await page.locator('table tbody tr', { hasText: '@uclm.es' }).evaluateAll((rows) => rows.forEach((r) => r.remove()));
+}
+
+async function openFirstMember(page: Page, section = '', email = '') {
+  await page.goto(`${BASE}/${GROUP}/teams`);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible();
+  const href = await page
+    .locator('table tbody tr', { hasText: email })
+    .locator('a[href*="/teams/"]')
+    .first()
+    .getAttribute('href');
+  await page.goto(`${BASE}${href}${section}`);
+  await settle(page);
+  await page.mouse.move(700, 700);
+}
+
+test('35 + 36 team list and filters', async ({ page }) => {
+  await page.goto(`${BASE}/${GROUP}/teams`);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible();
+  await hideRealAccount(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${TEAM}/35-team-list.png`);
+  await page.locator('button:has(svg.lucide-sliders-horizontal)').click();
+  await page.waitForTimeout(300);
+  await hideRealAccount(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${TEAM}/36-team-filters.png`);
+});
+
+test('37 team member detail', async ({ page }) => {
+  await openFirstMember(page);
+  await shot(page, `${TEAM}/37-team-member-detail.png`);
+});
+
+test('38 team member academic profile', async ({ page }) => {
+  await openFirstMember(page, '/academic-profile');
+  await shot(page, `${TEAM}/38-team-member-academic.png`);
+});
+
+test('39 employment records list', async ({ page }) => {
+  await page.goto(`${BASE}/${GROUP}/teams/employment-records`);
+  await settle(page);
+  await expect(page.locator('table tbody tr').first()).toBeVisible();
+  await hideRealAccount(page);
+  await page.mouse.move(700, 700);
+  await shot(page, `${TEAM}/39-employment-records-list.png`);
+});
+
+test('40 edit team member (Manager)', async ({ page }) => {
+  await page.context().clearCookies();
+  await page.evaluate(() => { localStorage.clear(); sessionStorage.clear(); });
+  await page.addInitScript(() => {
+    localStorage.setItem('msoc-language', 'es');
+    localStorage.setItem('theme', 'light');
+  });
+  await login(page, 'manager@sciencemanager.demo');
+  await openFirstMember(page, '/edit');
+  await expect(page.locator('#profile-orcid')).toBeVisible({ timeout: 15_000 });
+  await shot(page, `${TEAM}/40-team-member-edit.png`);
 });
