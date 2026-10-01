@@ -9,6 +9,11 @@
 # This runs the Docusaurus dev server (docs/Dockerfile.dev), not the
 # production Nginx build (docs/Dockerfile) — that one is used for the
 # K8s deployment image, see docs/.github/workflows/deploy.yml.
+#
+# Two services, one per locale: `docusaurus start` only serves ONE locale
+# per process (the Docusaurus i18n dev-mode limitation — production builds
+# all locales fine, see docs/Dockerfile). Testing the English translation
+# live requires its own dev server on a separate port.
 # =============================================================================
 
 services:
@@ -27,5 +32,21 @@ services:
     volumes:
       # Bind mount for live reload; node_modules stays in an anonymous volume
       # so the container's Linux binaries never clash with the host's.
+      - ./:/app
+      - /app/node_modules
+
+  docs-en:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: sci-manager-docs-en
+    command: ["npm", "run", "start", "--", "--host", "0.0.0.0", "--locale", "en"]
+    environment:
+      DOCKER_CONTAINER: "true"
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: "300"
+    ports:
+      - "${DOCS_EN_PORT:-8082}:3000"
+    volumes:
       - ./:/app
       - /app/node_modules
