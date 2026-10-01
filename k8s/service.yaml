@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sciencemanager-docs
+  namespace: science-manager
+  labels:
+    app: sciencemanager-docs
+spec:
+  type: ClusterIP
+  selector:
+    app: sciencemanager-docs
+  ports:
+    - port: 80
+      targetPort: 80
+      name: http
