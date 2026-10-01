@@ -3,6 +3,7 @@ id: index
 slug: /
 title: Documentación de Science Manager
 sidebar_label: Inicio
+sidebar_position: 0
 ---
 
 # Documentación de Science Manager
