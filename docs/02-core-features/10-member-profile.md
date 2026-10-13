@@ -6,7 +6,7 @@ sidebar_label: Perfil de una Persona
 
 # Perfil de una Persona
 
-La ficha de cada miembro del equipo es su **perfil**: un único lugar donde se ven todas sus contribuciones al grupo. Desde ella consultas sus publicaciones, los proyectos en los que participa, sus eventos y divulgación, su formación, sus estancias y sus contratos, sin recorrer cada módulo por separado.
+La ficha de cada miembro del equipo es su **perfil**: un único lugar donde se ven todas sus contribuciones al grupo. Desde ella consultas sus publicaciones, los proyectos en los que participa, sus eventos y divulgación, sus patentes, sus capítulos de libro, su formación, sus estancias y sus contratos, sin recorrer cada módulo por separado.
 
 Se llega desde **Equipo → Equipo** pulsando sobre el nombre de la persona. La dirección tiene la forma `/<grupo>/teams/<nombre-apellido>`; por ejemplo, `/nanotech-lab/teams/carlos-garcia`.
 
@@ -18,17 +18,20 @@ El nombre en la dirección es un identificador legible (*slug*). Los enlaces ant
 
 ## 🧱 Estructura del perfil \{#estructura-del-perfil}
 
-Bajo el nombre y la ruta de navegación aparece una barra con el avatar de la persona y siete pestañas.
+Bajo el nombre y la ruta de navegación aparece una barra con el avatar de la persona y nueve pestañas, más una décima, **CV**, que solo ven la propia persona, los **Reviewer** y los **Manager**.
 
 | Pestaña | Qué contiene | Dirección |
 |---|---|---|
 | **Detalles** | Datos personales e identificadores. | `/teams/carlos-garcia` |
 | **Perfil académico** | Titulaciones y tesis. | `…/academic-profile` |
-| **Estancias** | Estancias de investigación. | `…/stays` |
-| **Publicaciones** | Artículos en los que figura como autor. | `…/publications` |
 | **Proyectos** | Proyectos en los que participa. | `…/projects` |
+| **Publicaciones** | Artículos en los que figura como autor. | `…/publications` |
 | **Eventos** | Contribuciones a congresos y actividades de divulgación. | `…/events` |
+| **Estancias** | Estancias de investigación. | `…/stays` |
+| **Patentes** | Patentes en las que figura como autor o inventor. | `…/patents` |
+| **Capítulos de libro** | Capítulos de libro en los que figura como autor. | `…/book-chapters` |
 | **Vinculaciones** | Contratos con el grupo. | `…/employment-records` |
+| **CV** | Currículums generados a partir de todos los datos anteriores. | `…/cv` |
 
 Si escribes una sección que no existe, se muestra **Detalles**.
 
@@ -39,11 +42,14 @@ flowchart LR
     P(["👤 Perfil"])
     P --> T1["🧾 Detalles"] --> M1(["Equipo"])
     P --> T2["🎓 Perfil académico"] --> M2(["Dirección Académica"])
-    P --> T3["✈️ Estancias"] --> M3(["Estancias"])
+    P --> T3["🗂️ Proyectos"] --> M3(["Proyectos"])
     P --> T4["📚 Publicaciones"] --> M4(["Publicaciones"])
-    P --> T5["🗂️ Proyectos"] --> M5(["Proyectos"])
-    P --> T6["🎤 Eventos"] --> M6(["Eventos"])
-    P --> T7["📑 Vinculaciones"] --> M7(["Vinculación con el Equipo"])
+    P --> T5["🎤 Eventos"] --> M5(["Eventos"])
+    P --> T6["✈️ Estancias"] --> M6(["Estancias"])
+    P --> T7["💡 Patentes"] --> M7(["Patentes"])
+    P --> T8["📖 Capítulos de libro"] --> M8(["Capítulos de Libro"])
+    P --> T9["📑 Vinculaciones"] --> M9(["Vinculación con el Equipo"])
+    P --> T10["📄 CV"] --> M10(["Currículum (CV)"])
 ```
 
 ## 🧾 Detalles \{#detalles}
@@ -88,6 +94,18 @@ Recoge todas sus contribuciones a congresos y actividades de divulgación, con i
 
 Si la persona no tiene contribuciones, se muestra «Este usuario no tiene contribuciones registradas».
 
+## 💡 Patentes \{#patentes}
+
+Es el mismo explorador del módulo [Patentes](./06-patents.md), limitado a las patentes en las que la persona figura como autor o inventor. Mantiene el cuadro de búsqueda por título, el panel de filtros (**país** y **proyectos**), la tabla (**título**, **autores**, **número de patente**, **país** y **año**) y la paginación.
+
+Igual que en Publicaciones, la búsqueda se hace por la **persona**, no por un nombre concreto. Desde aquí no se pueden crear patentes; para ello usa el módulo de Patentes.
+
+## 📖 Capítulos de libro \{#capítulos-de-libro}
+
+Es el mismo explorador del módulo [Capítulos de Libro](./07-book-chapters.md), limitado a los capítulos en los que la persona figura como autor. La tabla muestra el **título del capítulo**, los **autores**, el **título del libro** y el **año**, con su cuadro de búsqueda, filtros y paginación.
+
+Desde aquí no se pueden crear capítulos; para ello usa el módulo de Capítulos de Libro.
+
 ## 🎓 Perfil académico y Estancias \{#perfil-académico-y-estancias}
 
 Ambas pestañas son tablas de solo lectura sobre una persona ajena:
@@ -110,8 +128,9 @@ Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/0
 
 | Acción | Quién puede |
 |---|---|
-| Ver **Detalles**, **Perfil académico**, **Estancias**, **Publicaciones**, **Proyectos** y **Eventos** | Cualquier usuario del grupo |
+| Ver **Detalles**, **Perfil académico**, **Proyectos**, **Publicaciones**, **Eventos**, **Estancias**, **Patentes** y **Capítulos de libro** | Cualquier usuario del grupo |
 | Ver **Nacionalidad**, **DNI** y **Fecha de nacimiento** | **Reviewer**, **Manager** y la propia persona |
+| Ver y generar el **CV** de una persona | **Reviewer**, **Manager** y la propia persona (borrarlo: **Manager** y la propia persona) |
 | Ver las **Vinculaciones** de una persona | **Manager**, la propia persona y el **IP** que la supervisa actualmente |
 | Añadir o editar una **Vinculación** | Solo **Manager** |
 | **Editar perfil** de otra persona | Solo **Manager** |
@@ -134,7 +153,7 @@ Tu perfil es el de cualquier otra persona, con dos diferencias: puedes cambiar t
 
 :::tip[Prepara tu CV o una memoria]
 
-Las pestañas **Publicaciones**, **Proyectos** y **Eventos** reúnen en una sola vista toda la producción de una persona, lo que ahorra consultar cada módulo con filtros al preparar un currículum o una justificación.
+Las pestañas **Proyectos**, **Publicaciones**, **Eventos**, **Patentes** y **Capítulos de libro** reúnen en una sola vista toda la producción de una persona. Para convertirla en un currículum en Word, usa la pestaña **CV**: ver [Currículum (CV) de una Persona](./11-member-cv.md).
 
 :::
 
