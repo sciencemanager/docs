@@ -16,8 +16,10 @@ Accede desde **Investigación → Proyectos**. La tabla muestra el código, el t
 *Listado de proyectos con el panel de filtros abierto.*
 
 - **Búsqueda rápida:** el cuadro superior filtra por **título** mientras escribes.
-- **Filtros avanzados:** el botón de filtros despliega un panel con **Entidad financiadora**, **Investigador**, **Año**, **Código** y **Estado** (activo / finalizado). Pulsa **Aplicar filtros** para confirmarlos; **Limpiar** los elimina.
+- **Filtros avanzados:** el botón de filtros despliega un panel con **Entidad financiadora**, **Investigador**, **Año**, **Código** y **Estado** (pendiente / denegado / activo / no iniciado / finalizado). Pulsa **Aplicar filtros** para confirmarlos; **Limpiar** los elimina.
 - Los proyectos activos aparecen primero.
+- **Etiqueta de estado:** la calcula el servidor. Un proyecto **Pendiente** o **Denegado** muestra siempre esa etiqueta, sin tener en cuenta las fechas. Un proyecto **Aprobado** se muestra como **No iniciado** (aún no ha llegado la fecha de inicio), **Activo** (hasta el último día de ejecución incluido) o **Finalizado**. Las fechas se evalúan con la zona horaria de Madrid.
+- **Avance:** los proyectos Pendientes o Denegados muestran siempre un avance del 0 %.
 
 ## ➕ Crear un nuevo proyecto \{#crear-un-nuevo-proyecto}
 

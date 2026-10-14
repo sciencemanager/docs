@@ -52,7 +52,7 @@ flowchart LR
 |---|---|
 | **Anuncios** | Tablón de avisos y comunicaciones internas del grupo. Desde aquí se puede crear un anuncio nuevo. |
 | **Próximos eventos** | Calendario mensual con los eventos registrados; los días con actividad aparecen marcados. Usa **Hoy** y las flechas para moverte entre meses. |
-| **Progreso de proyectos** | Avance temporal de los proyectos activos, calculado a partir de sus fechas de inicio y fin. |
+| **Progreso de proyectos** | Avance temporal de los proyectos activos, calculado a partir de sus fechas de inicio y fin. Los proyectos pendientes o denegados muestran un avance del 0 %. |
 | **Eventos recientes** | Los últimos eventos de diseminación y divulgación incorporados a la plataforma. |
 
 :::tip
