@@ -116,10 +116,12 @@ test('08 new publication from DOI', async ({ page }) => {
 test('09 publication detail', async ({ page }) => {
   await page.goto(`${BASE}/${GROUP}/publications`);
   await settle(page);
-  await page.locator('table tbody tr').first().click();
+  // Pick a publication that already has OpenAlex data so the "Citas en OpenAlex" panel shows.
+  await page.getByRole('link', { name: /Exfoliation of Graphite/ }).first().click();
   await page.waitForURL(/\/publications\/[^/]+$/);
   await expect(page.getByText('Cargando publicación')).toHaveCount(0, { timeout: 15_000 });
   await expect(page.getByText('Proyectos asociados')).toBeVisible();
+  await expect(page.getByText('Citas en OpenAlex')).toBeVisible();
   await settle(page);
   await page.mouse.move(700, 700);
   await shot(page, `${OUT}/02-core-features/09-publication-detail.png`);

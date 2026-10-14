@@ -73,7 +73,7 @@ Consulta [Gestión de Usuarios](../04-administration/02-user-management.md) para
 
 El **Contributor** aporta producción científica: puede crear publicaciones, capítulos de libro y contribuciones a eventos, y editar **solo lo que él mismo ha creado** o donde figura como autor.
 
-El **User** es el perfil de consulta. Ve la información general del grupo y su propio perfil, pero no puede crear contenido ni accede a módulos como [Revistas](../02-core-features/09-journals.md).
+El **User** es el perfil de consulta. Ve la información general del grupo y su propio perfil, pero no puede crear contenido. Puede abrir en solo lectura la ficha de una [revista](../02-core-features/09-journals.md) pulsándola desde el listado de publicaciones, aunque no ve la entrada **Revistas** en el menú.
 
 ## ✅ Qué puede hacer cada rol \{#qué-puede-hacer-cada-rol}
 
@@ -89,6 +89,7 @@ Resumen de las acciones más habituales. En cada módulo de [Funcionalidades pri
 | Crear eventos | — | — | ✅ | ✅ |
 | Ver DNI, nacionalidad y contratos | — | — | ✅ | ✅ |
 | Generar informes de grupo y proyecto | — | — | ✅ | ✅ |
+| Ver la ficha de una revista (solo lectura) | ✅ | ✅ | ✅ | ✅ |
 | Dar de alta y gestionar usuarios | — | — | — | ✅ |
 | Mantener catálogos (revistas, financiadoras) | — | — | — | ✅ |
 | Eliminar registros | — | — | — | ✅ |

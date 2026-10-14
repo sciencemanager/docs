@@ -47,12 +47,23 @@ Debajo, **Gestión de Revistas** muestra cuántas revistas están indexadas y la
 
 ## 📄 Consultar una revista \{#consultar-una-revista}
 
-Pulsa el nombre de una revista para abrir su ficha. Muestra la **abreviatura JCR**, la **editorial**, el **ISSN** y el **eISSN**, la **edición** (por ejemplo SCIE) y las **categorías** temáticas. A la derecha del título aparece el cuartil del año más reciente que tenga cuartil asignado.
+Pulsa el nombre de una revista para abrir su ficha. También puedes llegar a ella pulsando la revista en la columna **Revista** de cualquier [listado de publicaciones](./02-publications.md); **todos los usuarios** pueden abrirla en modo solo lectura. Muestra la **abreviatura JCR**, la **editorial**, el **ISSN** y el **eISSN**, la **edición** (por ejemplo SCIE) y las **categorías** temáticas. A la derecha del título aparece el cuartil del año más reciente que tenga cuartil asignado.
 
 Si la revista tiene métricas, la sección **Historial de citación** las lista por año, de más reciente a más antiguo: **JIF**, **Cuartil JIF** (Q1 a Q4, con color) y **Ranking JCI**.
 
 ![Ficha de una revista](/img/docs/02-core-features/54-journal-detail.png)
 *Ficha de una revista con sus datos y su historial de citación.*
+
+![Ficha de una revista (vista de User)](/img/docs/journals/journal-detail-user.png)
+*Ficha de solo lectura, vista de User.*
+
+![Ficha de una revista (vista de Contributor)](/img/docs/journals/journal-detail-contributor.png)
+*Ficha de solo lectura, vista de Contributor.*
+
+![Ficha de una revista con acciones de gestión (vista de Manager)](/img/docs/journals/journal-detail-manager.png)
+*Vista de Manager, con las acciones de edición.*
+
+Al pie de la ficha aparece una nota: «Estos datos han sido aportados por los miembros del equipo accediendo a JCR y copiando dichos datos». **JCR** es un enlace a [jcr.clarivate.com](https://jcr.clarivate.com) (se abre en una pestaña nueva). Los indicadores no proceden de una descarga oficial automática, así que contrástalos con JCR si los necesitas para un documento oficial.
 
 ## 🔐 Permisos requeridos \{#permisos-requeridos}
 
@@ -62,12 +73,13 @@ Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/0
 
 | Acción | Quién puede |
 |---|---|
-| Ver el listado y las fichas | Contributor, Reviewer y Manager |
+| Ver la ficha de una revista (solo lectura) | Todos los roles, incluido User |
+| Ver el listado de revistas (**Consulta → Revistas**) | Todos los roles; la entrada del menú la ven Contributor, Reviewer y Manager |
 | Añadir, editar, eliminar o importar métricas JCR | Solo Manager |
 
 :::
 
-Un usuario con rol **User** no ve la entrada **Revistas** en el menú ni puede abrir la página. Los botones de gestión solo aparecen a los Manager.
+Un usuario con rol **User** no ve la entrada **Revistas** en el menú, pero sí puede abrir la ficha de una revista desde el listado de publicaciones. Los botones de gestión (editar, eliminar, importar JCR) solo aparecen a los Manager.
 
 ## 🛠️ Gestionar el catálogo (Manager) \{#gestionar-el-catálogo-manager}
 

@@ -10,15 +10,25 @@ El módulo **Publicaciones** reúne todos los artículos científicos del grupo.
 
 ## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
-Accede desde **Investigación → Publicaciones**. La tabla muestra el **DOI**, el **título**, el **año**, la **revista** (abreviada), las **citas** y la **fecha de creación**. Por defecto se ordena por año descendente y, dentro de cada año, de la más reciente a la más antigua. Un candado verde junto al título indica que la publicación tiene **acceso abierto**.
+Accede desde **Investigación → Publicaciones**. La tabla muestra, por este orden, el **título**, los **autores**, la **revista** (abreviada), el **año**, las **citas** y la **fecha de creación**. Por defecto se ordena por año descendente y, dentro de cada año, de la más reciente a la más antigua. Los títulos se muestran completos, en varias líneas si hace falta, y un candado verde junto al título indica que la publicación tiene **acceso abierto**.
 
-![Listado de publicaciones](/img/docs/02-core-features/06-publications-list.png)
-*Listado de publicaciones del grupo.*
+Los **autores** aparecen como avatares con sus iniciales, en su orden de firma: se ven los tres primeros y un círculo **+N** agrupa al resto (pasa el ratón por encima para ver los nombres). Las **fechas** se muestran en el formato del idioma de la interfaz.
 
-- **Ordenar:** los encabezados **Año**, **Título**, **Revista** y **Citas** son pulsables. Cada clic cambia el orden en este ciclo: **descendente → ascendente → sin orden** (vuelve al orden por defecto). El orden se aplica a todo el listado, no solo a la página visible. En **Citas**, las publicaciones sin dato aparecen siempre al final.
-- **Búsqueda rápida:** el cuadro superior filtra por **título** mientras escribes.
+La **misma tabla** se usa en este listado y en la pestaña [Publicaciones del perfil de un miembro](./10-member-profile.md#publicaciones); solo cambia qué publicaciones contiene.
+
+![Listado de publicaciones (vista de User)](/img/docs/publications/publications-list-user.png)
+*Listado de publicaciones del grupo, vista de User.*
+
+![Listado de publicaciones (vista de Contributor)](/img/docs/publications/publications-list-contributor.png)
+*Vista de Contributor.*
+
+![Listado de publicaciones (vista de Manager)](/img/docs/publications/publications-list-manager.png)
+*Vista de Manager.*
+
+- **Ordenar:** los encabezados **Título**, **Revista**, **Año**, **Citas** y **Fecha de creación** son pulsables (la columna **Autores** no). Cada clic cambia el orden en este ciclo: **descendente → ascendente → sin orden** (vuelve al orden por defecto). El orden se aplica a todo el listado, no solo a la página visible. En **Citas**, las publicaciones sin dato aparecen siempre al final.
+- **Búsqueda rápida por título o DOI:** el cuadro superior («Buscar por título o DOI…») filtra mientras escribes. Puedes escribir parte del título o un DOI completo o parcial (por ejemplo `10.1038`).
 - **Paginación:** al pie de la tabla eliges cuántas filas ver por página (10, 25, 50 o 100).
-- **Abrir una publicación:** pulsa sobre la fila para ver su detalle, o usa el menú de tres puntos de la fila (**Ver**, **Editar** y **Enlace externo** al DOI).
+- **Qué se puede pulsar:** solo dos columnas son enlaces. El **título** abre la ficha de la publicación y la **revista** abre la [ficha de la revista](./09-journals.md#consultar-una-revista). El resto de celdas (autores, año, citas y fecha) y la fila en sí no responden al clic. El menú de tres puntos de la fila ofrece **Ver**, **Editar** y **Enlace externo** al DOI.
 
 ### Filtros avanzados
 
@@ -32,6 +42,32 @@ Pulsa **Aplicar filtros** para confirmarlos; **Limpiar filtros** los elimina. El
 
 ![Listado de publicaciones con el panel de filtros desplegado](/img/docs/02-core-features/07-publications-filters.png)
 *Panel de filtros abierto sobre el listado.*
+
+### Enlaces con filtros compartibles \{#enlaces-con-filtros}
+
+Los filtros, la búsqueda, el orden y la página quedan reflejados en la **dirección (URL)** del navegador. Puedes copiar el enlace y enviarlo: quien lo abra verá el listado con los mismos filtros. El botón «Atrás» del navegador recupera el filtrado anterior.
+
+![Listado filtrado mediante la URL](/img/docs/publications/publications-filtered-url-contributor.png)
+*Listado abierto desde un enlace con año y orden por fecha de creación.*
+
+| Parámetro | Ejemplo | Efecto |
+|---|---|---|
+| `search` | `?search=10.1038` | Busca por título o DOI |
+| `year` (repetible) | `?year=2026&year=2025` | Filtra por uno o varios años (4 cifras) |
+| `author` (repetible) | `?author=01a03ae4-04d3-7957-aa01-047409558f8e` | Filtra por el identificador (UUID) de uno o varios autores |
+| `journal` (repetible) | `?journal=<id-revista>` | Filtra por el identificador (UUID) de una o varias revistas |
+| `project` (repetible) | `?project=<id-proyecto>` | Filtra por el identificador (UUID) de uno o varios proyectos |
+| `sort` | `?sort=createdAt:desc` | Orden `campo:dirección` (`asc` o `desc`). Campos: `year`, `title`, `journal.name`, `citationMetrics.citationsCount`, `createdAt` |
+| `page` | `?page=2` | Página del listado |
+| `pageSize` | `?pageSize=50` | Filas por página: 10, 25, 50 o 100 |
+
+Se pueden combinar, por ejemplo `?year=2026&sort=createdAt:desc&pageSize=50`. Los parámetros desconocidos o con valores no válidos se ignoran, y los identificadores que no existen simplemente no devuelven resultados.
+
+:::note[Perfil de un miembro]
+
+En la pestaña de publicaciones de un perfil, la persona viene fijada por la propia ficha: no se puede cambiar mediante parámetros de la URL.
+
+:::
 
 ## 📄 Consultar una publicación \{#consultar-una-publicación}
 
@@ -116,7 +152,7 @@ flowchart TD
 
 - **Autores:** se precargan desde Crossref en su orden original y puedes arrastrarlos para reordenarlos. Si un autor coincide con personal del grupo (por apellido), se asocia automáticamente; en caso contrario puedes **Asociar usuario** manualmente. Los autores no vinculados se crean como autores externos al guardar.
 - **Revista:** si ya existe en la base de datos se vincula y se muestran sus indicadores. Si no existe, se avisa de que se añadirá como revista nueva y se notificará a los gestores para que completen sus datos.
-- **Acceso y Enlaces:** puedes indicar una **URL de Acceso Abierto** (la publicación aparecerá con el candado en el listado) y **Enlaces adicionales** con nombre y URL.
+- **Acceso y Enlaces:** puedes indicar una **URL de Acceso Abierto** (la publicación aparecerá con el candado junto al título en el listado) y **Enlaces adicionales** con nombre y URL.
 
 ### Creación manual (solo Managers)
 

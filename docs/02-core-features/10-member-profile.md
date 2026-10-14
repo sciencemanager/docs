@@ -69,10 +69,16 @@ Si la persona aún no tiene perfil académico, no se muestran los identificadore
 
 ## 📚 Publicaciones \{#publicaciones}
 
-Es el mismo explorador del módulo [Publicaciones](./02-publications.md), limitado a esta persona: con su cuadro de búsqueda, el panel de filtros, la tabla (**DOI**, **Título**, **Año**, **Revista** y **Fecha de creación**) y la paginación. Un candado verde indica acceso abierto.
+Es **exactamente la misma tabla** del módulo [Publicaciones](./02-publications.md), limitada a esta persona: con su cuadro de búsqueda (título o DOI), el panel de filtros, la tabla (**Título**, **Autores**, **Revista**, **Año**, **Citas** y **Fecha de creación**) y la paginación. Un candado verde indica acceso abierto. Igual que en el listado general, solo el título (abre la publicación) y la revista (abre su ficha) son enlaces.
 
-![Publicaciones de Carlos García López](/img/docs/02-core-features/57-member-profile-publications.png)
-*Pestaña **Publicaciones**: tres artículos de la persona, con su revista y año.*
+![Publicaciones de un miembro (vista de User)](/img/docs/publications/member-publications-user.png)
+*Pestaña **Publicaciones**, vista de User.*
+
+![Publicaciones de un miembro (vista de Contributor)](/img/docs/publications/member-publications-contributor.png)
+*Vista de Contributor.*
+
+![Publicaciones de un miembro (vista de Manager)](/img/docs/publications/member-publications-manager.png)
+*Vista de Manager.*
 
 Se buscan por la **persona**, no por un nombre concreto: si firma con variantes de su nombre, se muestran todas sus publicaciones. Desde aquí no se pueden crear publicaciones; para ello usa el módulo de Publicaciones.
 
