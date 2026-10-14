@@ -10,7 +10,7 @@ El módulo **Proyectos** es el registro histórico completo del grupo: incluye l
 
 ## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
-Accede desde **Investigación → Proyectos**. La tabla muestra el código, el título con su entidad financiadora y fechas, el investigador principal (IP), el importe y el avance temporal de cada proyecto.
+Accede desde **Investigación → Proyectos**. La tabla muestra el título con su entidad financiadora, las fechas y el código del proyecto (`inicio - fin / código`), el investigador principal (IP), el **Estado**, el importe y el avance temporal de cada proyecto. Esta misma tabla aparece en la pestaña de proyectos de la ficha de cada miembro del equipo.
 
 ![Listado de proyectos con el panel de filtros desplegado](/img/docs/02-core-features/03-projects-list-and-filters.png)
 *Listado de proyectos con el panel de filtros abierto.*
