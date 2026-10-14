@@ -10,11 +10,12 @@ El módulo **Publicaciones** reúne todos los artículos científicos del grupo.
 
 ## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
-Accede desde **Investigación → Publicaciones**. La tabla muestra el **DOI**, el **título**, el **año**, la **revista** (abreviada) y la **fecha de creación**. Se ordena por año descendente y, dentro de cada año, de la más reciente a la más antigua. Un candado verde junto al título indica que la publicación tiene **acceso abierto**.
+Accede desde **Investigación → Publicaciones**. La tabla muestra el **DOI**, el **título**, el **año**, la **revista** (abreviada), las **citas** y la **fecha de creación**. Por defecto se ordena por año descendente y, dentro de cada año, de la más reciente a la más antigua. Un candado verde junto al título indica que la publicación tiene **acceso abierto**.
 
 ![Listado de publicaciones](/img/docs/02-core-features/06-publications-list.png)
 *Listado de publicaciones del grupo.*
 
+- **Ordenar:** los encabezados **Año**, **Título**, **Revista** y **Citas** son pulsables. Cada clic cambia el orden en este ciclo: **descendente → ascendente → sin orden** (vuelve al orden por defecto). El orden se aplica a todo el listado, no solo a la página visible. En **Citas**, las publicaciones sin dato aparecen siempre al final.
 - **Búsqueda rápida:** el cuadro superior filtra por **título** mientras escribes.
 - **Paginación:** al pie de la tabla eliges cuántas filas ver por página (10, 25, 50 o 100).
 - **Abrir una publicación:** pulsa sobre la fila para ver su detalle, o usa el menú de tres puntos de la fila (**Ver**, **Editar** y **Enlace externo** al DOI).
@@ -40,6 +41,18 @@ Los autores vinculados a personal del grupo aparecen resaltados; el resto son au
 
 ![Detalle de una publicación](/img/docs/02-core-features/09-publication-detail.png)
 *Ficha de una publicación con sus autores, revista, indicadores y proyectos asociados.*
+
+### Citas (OpenAlex) \{#citas-de-openalex}
+
+La columna **Citas** muestra el número de citas de cada publicación según OpenAlex, o «—» si todavía no hay dato. La ficha de detalle incluye el panel **Citas en OpenAlex**, con:
+
+- **Citas totales**.
+- Un **percentil** (por ejemplo «Percentil P85–P90»), comparado con publicaciones del mismo año.
+- Un **gráfico de barras con las citas por año**; los años sin citas aparecen a 0.
+- **Última actualización: fecha** y el enlace **Ver en OpenAlex**.
+- Un icono de información que recuerda que los recuentos de OpenAlex difieren de Scopus y suelen ser mayores.
+
+Si aún no hay datos, el panel muestra «Aún no hay datos de OpenAlex.». Estos datos **solo aparecen después de que un Manager actualice las citas** del grupo desde [Conexiones con terceros](../04-administration/05-group-settings.md#citas-de-openalex); además, las publicaciones sin DOI válido o que OpenAlex no conoce se quedan sin dato.
 
 ## ➕ Añadir una publicación \{#añadir-una-publicación}
 

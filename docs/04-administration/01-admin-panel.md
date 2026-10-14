@@ -33,7 +33,7 @@ Cada tarjeta lleva a una herramienta. Pulsa en ella para abrirla.
 | **Importar CSV de Eventos** | Carga masiva de eventos y contribuciones. | [Eventos](../02-core-features/05-events.md) |
 | **Proyectos** | Gestión de proyectos de investigación. | [Proyectos](../02-core-features/01-projects.md) |
 | **Registro de Auditoría** | Historial de cambios de la plataforma. | [Auditoría y papelera](./06-audit-and-trash.md) |
-| **Conexiones con terceros** | Scopus y URLs de ORCID / ResearcherID. | [Configuración del grupo](./05-group-settings.md) |
+| **Conexiones con terceros** | Clave de OpenAlex (citas) y URLs de ORCID / ResearcherID. | [Configuración del grupo](./05-group-settings.md) |
 | **Referencia UI** y **Configuración del sistema** | Herramientas técnicas del rol Administrador. | — |
 
 Los catálogos compartidos (autores, entidades financiadoras y revistas) no tienen tarjeta aquí: se abren desde **Consulta** en el menú y se explican en [Catálogos y Entidades](./03-master-data.md).
@@ -67,7 +67,7 @@ flowchart TB
     U -->|"vincula persona ↔ autor"| PUB
     U -->|"el rol decide qué botones ves"| PERM
     A -->|"aprueba proyectos importados"| PRJ
-    T -->|"enlaces ORCID/WOS y citas Scopus"| PUB
+    T -->|"enlaces ORCID/WOS y citas OpenAlex"| PUB
     T -->|"enlaces a perfiles públicos"| EQ
     P -->|"restaura elementos borrados"| SYS
     ADM -.->|"cada cambio queda registrado"| AUD

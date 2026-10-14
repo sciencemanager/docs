@@ -34,3 +34,6 @@ services:
       # so the container's Linux binaries never clash with the host's.
       - ./:/app
       - /app/node_modules
+      # Generated cache embeds absolute paths; keep it container-local so host
+      # runs (`npm run build/start`) can't poison it with /Users/... paths.
+      - /app/.docusaurus
