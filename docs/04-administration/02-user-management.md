@@ -142,7 +142,7 @@ El formulario agrupa cuatro bloques independientes:
 | **Rol** | Cambia qué módulos y botones ve la persona en cada pantalla. |
 | **Estado** | Una cuenta que no esté **Activa** no puede iniciar sesión. |
 | **Perfil académico** | Alimenta la ficha en [Equipo](../02-core-features/06-team.md) y el [perfil de miembro](../02-core-features/10-member-profile.md). |
-| **Vínculo con autores** | Asocia a la persona sus [publicaciones](../02-core-features/02-publications.md) y contribuciones. |
+| **Vínculo con autores** | Asocia a la persona sus [publicaciones](../core-features/publications) y contribuciones. |
 | **Datos personales** | Los ven los roles Reviewer y superiores; el resto de roles solo ve los suyos. |
 
-Más sobre cómo se relaciona la administración con el resto de módulos en el [Panel de Administración](./01-admin-panel.md#como-se-conecta).
+Más sobre cómo se relaciona la administración con el resto de módulos en el [Panel de Administración](./admin-panel#como-se-conecta).

@@ -57,7 +57,7 @@ La ficha se organiza en pestañas. Cada una tiene su propia dirección, así que
 | **Detalles** | Datos personales e identificadores: ORCID, ResearcherID (WOS), director/supervisor y sexenios (de investigación y de transferencia). |
 | **Perfil académico** | Titulaciones de la persona (título, institución, fechas y estado). Al abrir una se mantiene la cabecera de la persona. |
 | **Estancias** | Estancias de investigación (ver [Movilidad](./04-mobility.md)). |
-| **Publicaciones** | El mismo explorador de [Publicaciones](./02-publications.md), limitado a esta persona. |
+| **Publicaciones** | El mismo explorador de [Publicaciones](./publications), limitado a esta persona. |
 | **Proyectos** | Proyectos en los que participa como IP, equipo de investigación o equipo de trabajo (ver [Proyectos](./01-projects.md)). |
 | **Eventos** | Sus contribuciones a congresos y actividades de divulgación. |
 | **Vinculaciones** | Sus contratos y vinculaciones con el grupo. |

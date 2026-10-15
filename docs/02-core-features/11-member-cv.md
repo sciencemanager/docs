@@ -61,7 +61,7 @@ Pulsa **Generar nuevo CV**. El formulario sigue los apartados del modelo CVA:
 | **A.3 Indicadores generales de calidad** | Texto libre de hasta 2000 caracteres. | Lo escribes tú. |
 | **A.4 Formación académica** | Selección de titulaciones. | [Perfil académico](./03-academic-direction.md). |
 | **B. Resumen libre** | Texto con **negrita**, *cursiva*, listas con viñetas y numeradas. Máximo 3500 caracteres de texto visible. | Lo escribes tú. |
-| **C.1 Publicaciones** y **Capítulos de libro** | Selección. | [Publicaciones](./02-publications.md) y [Capítulos de Libro](./07-book-chapters.md). |
+| **C.1 Publicaciones** y **Capítulos de libro** | Selección. | [Publicaciones](./publications) y [Capítulos de Libro](./07-book-chapters.md). |
 | **C.2 Congresos** | Selección de contribuciones. | [Eventos y Divulgación](./05-events.md). |
 | **C.3 Proyectos** | Selección. | [Proyectos](./01-projects.md). |
 | **C.4 Patentes** | Selección. | [Patentes](./06-patents.md). |
@@ -125,12 +125,12 @@ El generador solo ofrece lo que está vinculado a la persona del perfil:
 | Congresos | La persona figura como autora de la contribución y el evento es de tipo **Congreso**. Las actividades de **Divulgación** no se incluyen. |
 | Proyectos | Participa en él con cualquier papel: **IP**, equipo de investigación o equipo de trabajo. Se indica **IP** o **Miembro**; el importe es el final si existe, o el total. |
 
-Esto significa que, para que algo aparezca en el CV, antes tiene que estar registrado en su módulo y asociado a la persona (como autora o miembro). Si falta una publicación, el arreglo está en [Publicaciones](./02-publications.md), no en el CV.
+Esto significa que, para que algo aparezca en el CV, antes tiene que estar registrado en su módulo y asociado a la persona (como autora o miembro). Si falta una publicación, el arreglo está en [Publicaciones](./publications), no en el CV.
 
 ### De dónde salen los datos personales
 
 - **Persona:** nombre, apellidos, sexo, fecha de nacimiento, DNI, web, correo, ORCID y teléfono (el principal, o el primero registrado). Se editan en [Equipo](./06-team.md).
-- **Grupo:** entidad beneficiaria, instituto, centro y país, que se configuran en [Ajustes del Grupo](../04-administration/05-group-settings.md).
+- **Grupo:** entidad beneficiaria, instituto, centro y país, que se configuran en [Ajustes del Grupo](../administration/group-settings).
 - **Puesto y fecha de inicio (A.1):** salen del contrato activo. Si la persona no tiene ninguno, esos dos campos quedan vacíos y se avisa con «Sin vinculación activa registrada actualmente».
 
 La tabla **A.1** de solo lectura muestra exactamente lo que se imprimirá, así que puedes comprobarlo antes de guardar.

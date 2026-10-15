@@ -18,7 +18,7 @@ Solo el rol **Manager** accede a **Administración → Aprobaciones Pendientes**
 
 ## 📥 La bandeja \{#la-bandeja}
 
-Desde el [Panel de Administración](./01-admin-panel.md), pulsa la tarjeta **Aprobaciones Pendientes**.
+Desde el [Panel de Administración](./admin-panel), pulsa la tarjeta **Aprobaciones Pendientes**.
 
 ![Bandeja de aprobaciones pendientes](/img/docs/04-administration/07-pending-approvals.png)
 *Proyectos importados a la espera de decisión.*

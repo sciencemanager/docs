@@ -23,7 +23,7 @@ flowchart LR
 
 | Catálogo | Se usa en | Si está mal… |
 |---|---|---|
-| **Autores** | La firma de [publicaciones](../02-core-features/02-publications.md), capítulos y contribuciones. | Un mismo investigador aparece con varios nombres y su producción se reparte. |
+| **Autores** | La firma de [publicaciones](../core-features/publications), capítulos y contribuciones. | Un mismo investigador aparece con varios nombres y su producción se reparte. |
 | **Entidades financiadoras** | El campo **Entidad Financiadora** de los [proyectos](../02-core-features/01-projects.md) y su filtro. | Los proyectos quedan asociados a la entidad equivocada o duplicada. |
 | **Revistas** | La revista de cada publicación, de la que hereda JIF y cuartil. | Las publicaciones muestran «Sin métricas JCR». |
 

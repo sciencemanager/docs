@@ -8,7 +8,7 @@ sidebar_label: Revistas
 
 El módulo **Revistas** es el catálogo de consulta de las revistas científicas en las que publica el grupo. Para cada revista guarda sus datos de identificación (editorial, ISSN, categorías) y su **historial de citación**: el factor de impacto (**JIF**), el **cuartil** y el ranking **JCI** de cada año según el *Journal Citation Reports* (JCR).
 
-Estos indicadores son los que ves en la ficha de cada [publicación](./02-publications.md): la publicación se vincula a una revista y hereda sus métricas.
+Estos indicadores son los que ves en la ficha de cada [publicación](./publications): la publicación se vincula a una revista y hereda sus métricas.
 
 :::note[Catálogo compartido]
 
@@ -47,7 +47,7 @@ Debajo, **Gestión de Revistas** muestra cuántas revistas están indexadas y la
 
 ## 📄 Consultar una revista \{#consultar-una-revista}
 
-Pulsa el nombre de una revista para abrir su ficha. También puedes llegar a ella pulsando la revista en la columna **Revista** de cualquier [listado de publicaciones](./02-publications.md); **todos los usuarios** pueden abrirla en modo solo lectura. Muestra la **abreviatura JCR**, la **editorial**, el **ISSN** y el **eISSN**, la **edición** (por ejemplo SCIE) y las **categorías** temáticas. A la derecha del título aparece el cuartil del año más reciente que tenga cuartil asignado.
+Pulsa el nombre de una revista para abrir su ficha. También puedes llegar a ella pulsando la revista en la columna **Revista** de cualquier [listado de publicaciones](./publications); **todos los usuarios** pueden abrirla en modo solo lectura. Muestra la **abreviatura JCR**, la **editorial**, el **ISSN** y el **eISSN**, la **edición** (por ejemplo SCIE) y las **categorías** temáticas. A la derecha del título aparece el cuartil del año más reciente que tenga cuartil asignado.
 
 Si la revista tiene métricas, la sección **Historial de citación** las lista por año, de más reciente a más antiguo: **JIF**, **Cuartil JIF** (Q1 a Q4, con color) y **Ranking JCI**.
 

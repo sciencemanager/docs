@@ -69,7 +69,7 @@ Si la persona aún no tiene perfil académico, no se muestran los identificadore
 
 ## 📚 Publicaciones \{#publicaciones}
 
-Es **exactamente la misma tabla** del módulo [Publicaciones](./02-publications.md), limitada a esta persona: con su cuadro de búsqueda (título o DOI), el panel de filtros, la tabla (**Título**, **Autores**, **Revista**, **Año**, **Citas** y **Fecha de creación**) y la paginación. Un candado verde indica acceso abierto. Igual que en el listado general, solo el título (abre la publicación) y la revista (abre su ficha) son enlaces.
+Es **exactamente la misma tabla** del módulo [Publicaciones](./publications), limitada a esta persona: con su cuadro de búsqueda (título o DOI), el panel de filtros, la tabla (**Título**, **Autores**, **Revista**, **Año**, **Citas** y **Fecha de creación**) y la paginación. Un candado verde indica acceso abierto. Igual que en el listado general, solo el título (abre la publicación) y la revista (abre su ficha) son enlaces.
 
 ![Publicaciones de un miembro (vista de User)](/img/docs/publications/member-publications-user.png)
 *Pestaña **Publicaciones**, vista de User.*
