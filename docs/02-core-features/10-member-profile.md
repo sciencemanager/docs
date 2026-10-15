@@ -141,7 +141,7 @@ Consulta qué es cada rol en [Modelo de Roles y Accesos](../01-getting-started/0
 | Añadir o editar una **Vinculación** | Solo **Manager** |
 | **Editar perfil** de otra persona | Solo **Manager** |
 | Añadir titulaciones o estancias | La propia persona (un **Manager** también puede añadir estancias a otros) |
-| Cambiar el avatar | Solo la propia persona, desde su avatar |
+| Cambiar la imagen de perfil (foto, avatar 3D o color de fondo) | La propia persona, desde su avatar, y un **Manager** para las personas de su grupo |
 
 Si no tienes permiso, la acción no aparece. En el perfil de otra persona sin acciones disponibles no se muestra el menú de tres puntos.
 
@@ -156,6 +156,31 @@ Un **Reviewer** que no sea IP de la persona **no ve** sus contratos aunque la pe
 ## 🙋 Tu propio perfil \{#tu-propio-perfil}
 
 Tu perfil es el de cualquier otra persona, con dos diferencias: puedes cambiar tu avatar pulsando sobre él y puedes añadir tus propias titulaciones y estancias desde el menú de tres puntos de la pestaña correspondiente.
+
+### Tu imagen de perfil \{#imagen-de-perfil}
+
+Pulsa sobre tu avatar para abrir **Personaliza tu imagen de perfil**. Tiene tres pestañas:
+
+| Pestaña | Qué hace |
+|---|---|
+| **Subir foto** | Sube una foto tuya en **JPG o PNG**, de **5 MB como máximo**. Antes de guardar puedes encuadrarla y ajustar el zoom. |
+| **Avatares 3D** | Elige uno de los avatares ilustrados de la plataforma. |
+| **Color de fondo** | Elige el color que aparece detrás de tu imagen o de tus iniciales, de la paleta o con el selector de color. |
+
+Solo se muestra una imagen a la vez:
+
+- Si subes una foto, sustituye a tu avatar 3D.
+- Si eliges un avatar 3D, tu foto se **borra** de la plataforma.
+- Si quitas la foto y no tienes avatar 3D, se muestran tus iniciales.
+- Cambiar el color de fondo no afecta a tu foto ni a tu avatar.
+
+Tu imagen aparece en todas partes donde sale tu nombre: el equipo, las listas de autores de publicaciones, los investigadores de los proyectos y el panel de inicio. La ven las personas de todos los grupos a los que perteneces.
+
+:::note[Qué pasa con tus fotos anteriores]
+
+Cuando cambias o quitas tu foto, la anterior se elimina del almacenamiento en ese momento: la plataforma no guarda un historial de tus fotos.
+
+:::
 
 :::tip[Prepara tu CV o una memoria]
 
