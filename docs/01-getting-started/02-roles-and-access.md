@@ -99,3 +99,7 @@ Resumen de las acciones más habituales. En cada módulo de [Funcionalidades pri
 Si una opción no aparece en el menú o en una ficha, es que tu rol no tiene permiso para ella. No es un error de carga. Si necesitas más permisos, pídeselos a un Manager de tu grupo.
 
 :::
+
+## 🛠️ Servicio en mantenimiento \{#servicio-en-mantenimiento}
+
+Si al entrar ves el aviso **«Servicio temporalmente no disponible»** sobre el formulario de acceso y el botón de inicio de sesión está desactivado, la plataforma está parada a propósito (por ejemplo, mientras se corrigen vulnerabilidades de seguridad). No es un problema de tu cuenta ni de tu contraseña. Vuelve a intentarlo más tarde: el aviso desaparece solo en cuanto el servicio se restablece.
