@@ -45,7 +45,7 @@ Esta pantalla no se ha ilustrado: en el entorno de demostración utilizado para 
 
 ### Citas de OpenAlex \{#citas-de-openalex}
 
-Permite obtener el número de citas de las publicaciones del grupo desde [OpenAlex](https://openalex.org), una base de datos bibliográfica abierta. Cada grupo usa **su propia clave de API**: no hay interruptor de activación, la función está disponible en cuanto el grupo guarda una clave.
+Permite obtener el número de citas de las publicaciones del grupo desde [OpenAlex](https://openalex.org), una base de datos bibliográfica abierta. Cada grupo usa **su propia clave de API**: la función se activa tras guardar la clave y **probar la conexión**.
 
 **Cómo conseguir una clave gratuita**
 
@@ -54,6 +54,17 @@ Permite obtener el número de citas de las publicaciones del grupo desde [OpenAl
 3. En Science Manager, abre **Administración → Conexiones con terceros**, pega la clave en **Clave de API de OpenAlex** y pulsa **Guardar**. Aparece «Clave de API de OpenAlex guardada».
 
 El campo oculta la clave por defecto; el icono del ojo (**Mostrar clave de API** / **Ocultar clave de API**) la muestra. Una vez guardada, el servidor solo devuelve la clave enmascarada: si guardas sin tocar el campo, se conserva la actual.
+
+**Probar la conexión**
+
+1. Tras guardar la clave, pulsa **Probar conexión**. Si OpenAlex la acepta aparece «Conexión verificada»; si la rechaza, «OpenAlex ha rechazado la clave de API»; si no se puede contactar con OpenAlex, «No se ha podido contactar con OpenAlex, inténtalo más tarde» (se conserva el estado anterior).
+2. Las acciones de actualización (citas de publicaciones y, más adelante, métricas del perfil de autor) **solo están disponibles con la conexión verificada**. **Cambiar la clave quita la verificación**: hay que volver a probarla.
+
+Los grupos que ya tenían una clave guardada antes de esta función quedan verificados automáticamente, así que no pierden nada.
+
+**Métricas mostradas**
+
+En la tarjeta independiente **Métricas mostradas** (también en *Conexiones con terceros*, fuera de la tarjeta de OpenAlex) eliges qué fuente muestran los perfiles de los miembros y las citas de las publicaciones. Hoy solo existe OpenAlex.
 
 :::warning[Presupuesto y límites de la clave]
 
@@ -65,7 +76,7 @@ Una clave gratuita permite aproximadamente **1 $ de uso al día**, que se reinic
 
 - **Publicaciones a actualizar: N** indica cuántas publicaciones del grupo tienen un DOI válido y se consultarán. Las publicaciones **sin DOI o con un DOI no válido se omiten**.
 - **Última actualización: fecha** muestra cuándo se actualizaron las citas por última vez («Nunca» si todavía no se ha hecho).
-- El botón **Actualizar citas (OpenAlex)** solo aparece cuando hay una clave guardada; sin ella verás «Guarda una clave de API para habilitar las actualizaciones». Está desactivado si no hay publicaciones que actualizar.
+- El botón **Actualizar citas** solo aparece cuando la conexión está verificada; en caso contrario verás «Guarda una clave de API para habilitar las actualizaciones» o «Guarda la clave de API y prueba la conexión para habilitar las opciones siguientes.». Está desactivado si no hay publicaciones que actualizar.
 - Al pulsarlo aparece un aviso del tipo «N lotes en cola; se ejecutan en segundo plano». El proceso **continúa en segundo plano**: puedes cerrar la pantalla y mientras dure el botón muestra **Actualizando…**. Cuando termina, la fecha de última actualización cambia.
 - Solo puede haber una actualización a la vez por grupo. Si pulsas mientras hay otra en curso, se muestra «Ya hay una actualización en curso» y no se lanza nada nuevo.
 
