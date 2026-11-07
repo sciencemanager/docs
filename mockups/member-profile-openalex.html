@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup · Perfil de miembro</title>
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+  /* Tokens from group/src/css/app.css */
+  :root {
+    --background:#fff; --foreground:#1c2536; --primary:#1e8688; --secondary:#143759;
+    --muted:#f5f5f5; --muted-foreground:#5a6a85bf; --border:#dfe5ef; --hover:#f5f7fa;
+    --success:#13deb9; --warning:#f6b51e;
+    --lightprimary: color-mix(in oklab, var(--primary) 12%, transparent);
+    --lightsuccess: color-mix(in oklab, var(--success) 14%, transparent);
+    --lightwarning: color-mix(in oklab, var(--warning) 16%, transparent);
+  }
+  :root.dark {
+    --background:#1c2536; --foreground:#fff; --muted:#2a3851; --muted-foreground:#7c8fac;
+    --border:#333f55; --hover:#ffffff0d;
+    --lightprimary: color-mix(in oklab, var(--primary) 22%, transparent);
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--background); color:var(--foreground); font:14px/1.5 'DM Sans',sans-serif; }
+  a { color:var(--primary); text-decoration:none; } a:hover { text-decoration:underline; }
+  iconify-icon { vertical-align:-0.2em; }
+
+  /* ── App shell ── */
+  .app { display:grid; grid-template-columns:270px 1fr; min-height:100vh; }
+  aside.side { border-right:1px solid var(--border); padding:24px 20px; position:sticky; top:0; height:100vh; overflow:auto; }
+  .logo { font-weight:700; font-size:20px; letter-spacing:-.01em; margin:0 0 32px 4px; color:var(--secondary); }
+  :root.dark .logo { color:#fff; } .logo b { color:var(--primary); }
+  .grp { font-size:12px; font-weight:700; text-transform:uppercase; margin:22px 4px 8px; }
+  .nav a { display:flex; gap:12px; align-items:center; padding:9px 12px; border-radius:6px; color:var(--foreground); font-size:14px; }
+  .nav a:hover { background:var(--hover); text-decoration:none; }
+  .nav a.on { background:var(--lightprimary); color:var(--primary); font-weight:600; }
+  .nav iconify-icon { font-size:20px; }
+  .main { min-width:0; }
+  .topbar { height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 24px; }
+  .topbar .r { display:flex; align-items:center; gap:16px; }
+  .ava { border-radius:50%; background:var(--lightprimary); color:var(--primary); display:grid; place-items:center; font-weight:600; flex:none; }
+  .content { padding:8px 24px 60px; }
+  @media (max-width:900px){ .app{grid-template-columns:1fr;} aside.side{display:none;} }
+
+  /* ── Page header (BreadcrumbComp + avatar + kebab) ── */
+  .head { display:flex; align-items:center; gap:16px; margin-bottom:12px; }
+  .head h1 { font-size:24px; font-weight:600; margin:0; line-height:1.25; }
+  .bc { color:var(--muted-foreground); font-size:14px; }
+  .bc span.dot { margin:0 8px; } .bc b { color:var(--primary); font-weight:500; }
+  .kebab { margin-left:auto; color:var(--foreground); cursor:pointer; font-size:20px; }
+
+  /* ── DetailTabNav ── */
+  .tabnav { background:var(--background); border:1px solid var(--border); border-radius:7px; padding:12px; margin-bottom:12px; display:flex; flex-wrap:wrap; gap:4px; }
+  .tab { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; font-size:14px; font-weight:500; color:var(--muted-foreground); border-radius:4px; white-space:nowrap; }
+  .tab:hover { background:var(--hover); text-decoration:none; }
+  .tab.on { background:var(--primary); color:#fff; box-shadow:0 .125rem .25rem rgba(0,0,0,.075); }
+  .tab .n { background:color-mix(in oklab, currentColor 15%, transparent); border-radius:999px; padding:0 7px; font-size:11px; }
+
+  /* ── Cards (CardBox / section) ── */
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:stretch; margin-bottom:12px; }
+  .grid2 > .card, .grid2 > .sx { margin:0 !important; }
+  .grid2 > .sx { display:flex; flex-direction:column; } .grid2 > .sx .sx-body { flex:1; }
+  @media (max-width:1100px){ .grid2{grid-template-columns:1fr;} }
+  .metrics.m3 { grid-template-columns:repeat(3,1fr); }
+  .grid { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:12px; align-items:stretch; }
+  .grid > div, .grid > aside { display:flex; flex-direction:column; min-width:0; }
+  .grid > div > .card:last-child, .grid > aside > .card:last-child { flex:1; }
+  @media (max-width:1100px){ .grid{grid-template-columns:1fr;} }
+  .card { background:var(--background); border:1px solid var(--border); border-radius:12px; padding:24px; }
+  .card + .card { margin-top:12px; }
+  .eyebrow { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--muted-foreground); margin:0 0 16px; }
+  .eyebrow.row { display:flex; justify-content:space-between; align-items:center; }
+  .eyebrow a { text-transform:none; letter-spacing:0; font-weight:500; font-size:13px; }
+
+  /* MemberInfoRow */
+  .info { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; }
+  .info .l { font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:var(--muted-foreground); display:flex; align-items:center; gap:4px; }
+  .info .v { font-size:14px; font-weight:500; margin-top:2px; }
+  .ext { font-size:12px; margin-left:4px; }
+
+  /* Metrics */
+  .metrics { display:grid; grid-template-columns:repeat(2,1fr); gap:18px 20px; }
+  .metric .v { font-size:28px; font-weight:700; line-height:1.1; color:var(--primary); }
+  .metric .l { font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:var(--muted-foreground); }
+  hr { border:0; border-top:1px solid var(--border); margin:18px 0; }
+
+  /* Year chart */
+  .chart { display:flex; align-items:flex-end; gap:5px; height:120px; }
+  .col { flex:1; background:var(--lightprimary); border-radius:3px 3px 0 0; position:relative; min-height:3px; }
+  .col:hover { background:var(--primary); }
+  .col:hover::after { content:attr(data-tip); position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:var(--secondary); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px; white-space:nowrap; z-index:2; }
+  .axis { display:flex; justify-content:space-between; font-size:11px; color:var(--muted-foreground); margin-top:6px; }
+
+  /* Lists */
+  .li { display:flex; align-items:center; gap:10px; padding:9px 0; border-top:1px solid var(--border); }
+  .li:first-of-type { border-top:0; padding-top:0; }
+  .li .name { flex:1; } .li .c { color:var(--muted-foreground); font-size:13px; font-variant-numeric:tabular-nums; }
+  .bar { flex:0 0 64px; height:6px; background:var(--muted); border-radius:3px; overflow:hidden; } .bar i { display:block; height:100%; background:var(--primary); }
+
+  /* Works */
+  .toolbar { display:flex; gap:8px; margin-bottom:4px; flex-wrap:wrap; }
+  .toolbar input { flex:1; min-width:160px; border:1px solid var(--border); background:var(--background); color:var(--foreground); border-radius:6px; padding:7px 12px; font:inherit; }
+  .btn { border:1px solid var(--border); background:var(--background); color:var(--foreground); border-radius:6px; padding:7px 12px; font:inherit; font-weight:500; cursor:pointer; }
+  .btn:hover { background:var(--hover); }
+  .work { padding:14px 0; border-top:1px solid var(--border); } .work:first-of-type { border-top:0; }
+  .work a.t { font-size:15px; font-weight:600; line-height:1.35; display:block; }
+  .meta { color:var(--muted-foreground); font-size:13px; margin-top:3px; } .meta i { color:var(--foreground); }
+  .tags { display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+  .tag { font-size:11px; font-weight:600; border-radius:999px; padding:1px 9px; background:var(--muted); color:var(--muted-foreground); }
+  .tag.jif { background:var(--lightprimary); color:var(--primary); }
+  .tag.oa { background:var(--lightsuccess); color:#0fa98e; } .tag.q1 { background:var(--lightwarning); color:#b57f00; }
+  /* Sexenios widget */
+  .sx { margin-top:12px; border-radius:12px; overflow:hidden; border:1px solid var(--border); background:var(--background); margin-bottom:12px; box-shadow:0 2px 10px rgba(20,55,89,.08); }
+  .sx-head { background:var(--primary); color:#fff; display:flex; justify-content:space-between; align-items:center; padding:14px 24px; font-weight:700; font-size:18px; }
+  .sx-head iconify-icon { margin-right:10px; font-size:22px; }
+  .sx-head a { color:#fff; font-weight:500; font-size:15px; }
+  .sx-body { display:flex; gap:28px; align-items:center; padding:22px 24px; flex-wrap:wrap; }
+  .sx-num { text-align:center; } .sx-num b { display:block; font-size:44px; line-height:1; font-weight:700; color:var(--primary); }
+  .sx-num span { font-size:15px; color:var(--muted-foreground); }
+  .sx-num.tr b { color:#8754ec; }
+  .sx-prog { flex:1; min-width:260px; }
+  .sx-top { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .sx-top strong { font-size:17px; font-weight:600; } .sx-top em { font-style:normal; font-weight:700; color:var(--primary); }
+  .sx-track { height:10px; background:var(--muted); border-radius:999px; overflow:hidden; margin:10px 0 8px; }
+  :root:not(.dark) .sx-track { background:#e8edf3; }
+  .sx-track i { display:block; height:100%; background:var(--primary); border-radius:999px; }
+  .sx-prog p { margin:0; color:var(--muted-foreground); font-size:14px; }
+  /* Sexenios (compact, same card as the rest) */
+  .sx2 { display:flex; align-items:center; gap:22px; }
+  .sx2-n { display:flex; flex-direction:column; align-items:flex-start; flex:none; }
+  .sx2-n b { font-size:26px; line-height:1; font-weight:700; color:var(--primary); }
+  .sx2-n.tr b { color:#8754ec; }
+  .sx2-n span { font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--muted-foreground); margin-top:4px; }
+  .sx2-p { flex:1; min-width:0; border-left:1px solid var(--border); padding-left:22px; }
+  .sx2-t { display:flex; justify-content:space-between; font-size:13px; font-weight:600; }
+  .sx2-t em { font-style:normal; color:var(--primary); }
+  .sx2-track { height:6px; background:var(--muted); border-radius:999px; overflow:hidden; margin:6px 0 5px; }
+  .sx2-track i { display:block; height:100%; background:var(--primary); border-radius:999px; }
+  .sx2-p small { font-size:12px; color:var(--muted-foreground); display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pager { display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:14px; border-top:1px solid var(--border); color:var(--muted-foreground); font-size:13px; }
+  .note { margin-top:20px; font-size:13px; color:var(--muted-foreground); border:1px dashed var(--border); border-radius:12px; padding:14px 18px; }
+  .note b { color:var(--foreground); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="side">
+    <p class="logo">SCIENCE <b>MANAGER</b></p>
+    <div class="grp">Inicio</div>
+    <nav class="nav"><a href="#"><iconify-icon icon="tabler:layout-dashboard"></iconify-icon>Panel</a></nav>
+    <div class="grp">Investigación</div>
+    <nav class="nav">
+      <a href="#"><iconify-icon icon="tabler:folder"></iconify-icon>Proyectos</a>
+      <a href="#"><iconify-icon icon="tabler:file-text"></iconify-icon>Publicaciones</a>
+      <a href="#"><iconify-icon icon="tabler:microphone"></iconify-icon>Eventos</a>
+      <a href="#"><iconify-icon icon="tabler:school"></iconify-icon>Dirección académica</a>
+      <a href="#"><iconify-icon icon="tabler:world"></iconify-icon>Estancias</a>
+      <a href="#"><iconify-icon icon="tabler:flask"></iconify-icon>Infraestructura</a>
+      <a href="#"><iconify-icon icon="tabler:shield-check"></iconify-icon>Patentes</a>
+      <a href="#"><iconify-icon icon="tabler:book"></iconify-icon>Capítulos de Libro</a>
+    </nav>
+    <div class="grp">Equipo</div>
+    <nav class="nav">
+      <a href="#" class="on"><iconify-icon icon="tabler:users"></iconify-icon>Equipo</a>
+      <a href="#"><iconify-icon icon="tabler:file-certificate"></iconify-icon>Vinculación con el Equipo</a>
+    </nav>
+    <div class="grp">Consulta</div>
+    <nav class="nav">
+      <a href="#"><iconify-icon icon="tabler:user-search"></iconify-icon>Autores</a>
+      <a href="#"><iconify-icon icon="tabler:building-bank"></iconify-icon>Entidades financiadoras</a>
+      <a href="#"><iconify-icon icon="tabler:news"></iconify-icon>Revistas</a>
+      <a href="#"><iconify-icon icon="tabler:report"></iconify-icon>Informes del grupo</a>
+    </nav>
+    <div class="grp">Mi cuenta</div>
+    <nav class="nav">
+      <a href="#"><iconify-icon icon="tabler:user-circle"></iconify-icon>Perfil de Usuario</a>
+      <a href="#" class="new"><iconify-icon icon="tabler:file-description"></iconify-icon>CV</a>
+      <a href="#"><iconify-icon icon="tabler:bell"></iconify-icon>Notificaciones</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <iconify-icon icon="tabler:menu-2" style="font-size:24px"></iconify-icon>
+      <div class="r">
+        <button class="btn" onclick="document.documentElement.classList.toggle('dark')">◐ Tema</button>
+        <iconify-icon icon="tabler:bell" style="font-size:22px"></iconify-icon>
+        <div class="ava" style="width:40px;height:40px">AM</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Header: avatar + title + breadcrumb + kebab (as BreadcrumbComp) -->
+      <div class="head">
+        <div class="ava" style="width:48px;height:48px;font-size:14px">AM</div>
+        <div>
+          <h1>Antonio Manuel Rodríguez García</h1>
+          <div class="bc">Inicio<span class="dot">•</span>Equipo<span class="dot">•</span><b>Antonio Manuel Rodríguez García</b></div>
+        </div>
+        <iconify-icon class="kebab" icon="tabler:dots-vertical"></iconify-icon>
+      </div>
+
+      <!-- DetailTabNav -->
+      <nav class="tabnav">
+        <a class="tab on" href="#"><iconify-icon icon="tabler:user"></iconify-icon>Detalles</a>
+        <a class="tab" href="#"><iconify-icon icon="tabler:school"></iconify-icon>Perfil académico</a>
+        <a class="tab" href="#"><iconify-icon icon="tabler:folder-open"></iconify-icon>Proyectos <span class="n">9</span></a>
+        <a class="tab" href="#"><iconify-icon icon="tabler:microphone"></iconify-icon>Eventos <span class="n">12</span></a>
+        <a class="tab" href="#"><iconify-icon icon="tabler:world"></iconify-icon>Estancias <span class="n">3</span></a>
+        <a class="tab" href="#"><iconify-icon icon="tabler:certificate"></iconify-icon>Patentes <span class="n">2</span></a>
+        <a class="tab" href="#"><iconify-icon icon="tabler:notebook"></iconify-icon>Capítulos de libro <span class="n">5</span></a>
+        <a class="tab" href="#"><iconify-icon icon="tabler:file-certificate"></iconify-icon>Vinculaciones</a>
+      </nav>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <div class="grid">
+<div>
+<section class="card">
+            <p class="eyebrow">Datos personales</p>
+            <div class="info">
+              <div><div class="l"><iconify-icon icon="tabler:user"></iconify-icon>Nombre</div><div class="v">Antonio Manuel</div></div>
+              <div><div class="l"><iconify-icon icon="tabler:user"></iconify-icon>Apellidos</div><div class="v">Rodríguez García</div></div>
+              <div><div class="l"><iconify-icon icon="tabler:mail"></iconify-icon>Correo electrónico</div><div class="v">antoniom.rodriguez@uclm.es</div></div>
+              <div><div class="l"><iconify-icon icon="tabler:building"></iconify-icon>Categoría</div><div class="v">Profesor Titular de Universidad</div></div>
+              <div><div class="l"><iconify-icon icon="tabler:hash"></iconify-icon>ORCID</div><div class="v"><a href="#">0000-0002-4405-2406</a><iconify-icon class="ext" icon="tabler:external-link"></iconify-icon></div></div>
+              <div><div class="l"><iconify-icon icon="tabler:hash"></iconify-icon>ResearcherID (WoS)</div><div class="v"><a href="#">G-2513-2010</a><iconify-icon class="ext" icon="tabler:external-link"></iconify-icon></div></div>
+
+            </div>
+          </section>
+<section class="card" style="margin-top:12px">
+            <p class="eyebrow row">Publicaciones más relevantes <a href="#">Exportar BibTeX</a></p>
+            <div class="toolbar">
+              <input placeholder="Buscar en sus publicaciones…">
+              <button class="btn">Año ▾</button><button class="btn">Tipo ▾</button><button class="btn">Más relevantes: citas ▾</button>
+            </div>
+            <article class="work">
+              <a class="t" href="#">Exfoliation of Graphite with Triazine Derivatives under Ball-Milling Conditions: Preparation of Few-Layer Graphene</a>
+              <div class="meta">2013 · V. León, A. M. Rodríguez, et al. · <i>ACS Nano</i> · ❝ 281</div>
+              <div class="tags"><span class="tag q1">Q1 · JCR</span><span class="tag jif">JIF 15,8</span><span class="tag">Artículo</span><span class="tag oa">Open Access</span></div>
+            </article>
+            <article class="work">
+              <a class="t" href="#">Comprehensive review of natural based hydrogels as an upcoming trend for food packing</a>
+              <div class="meta">2022 · F. J. Leyva-Jiménez, R. Oliver-Simancas, A. M. Rodríguez, et al. · <i>Food Hydrocolloids</i> · ❝ 122</div>
+              <div class="tags"><span class="tag q1">Q1 · JCR</span><span class="tag jif">JIF 11,4</span><span class="tag">Revisión</span></div>
+            </article>
+            <article class="work">
+              <a class="t" href="#">Influence of Polarity and Activation Energy in Microwave-Assisted Organic Synthesis</a>
+              <div class="meta">2015 · A. M. Rodríguez, et al. · <i>ChemSusChem</i> · ❝ 96</div>
+              <div class="tags"><span class="tag q1">Q2 · JCR</span><span class="tag jif">JIF 8,4</span><span class="tag">Artículo</span><span class="tag oa">Open Access</span></div>
+            </article>
+          <div class="pager"><span>Mostrando 3 de 54</span><a href="#">Ver todas las publicaciones →</a></div>
+          </section>
+<!-- Widget Sexenios -->
+<section class="card" style="margin-top:12px">
+  <p class="eyebrow row">Sexenios <a href="#">Ver cronología →</a></p>
+  <div class="sx2">
+    <div class="sx2-n"><b>4</b><span>Investigación</span></div>
+    <div class="sx2-n tr"><b>1</b><span>Transferencia</span></div>
+    <div class="sx2-p">
+      <div class="sx2-t"><span>Próximo sexenio · 2026–2031</span><em>14%</em></div>
+      <div class="sx2-track"><i style="width:14%"></i></div>
+      <small>Último periodo evaluado en 2025 · unos 5 años restantes</small>
+    </div>
+  </div>
+</section>
+</div>
+<aside>
+<section class="card"><p class="eyebrow">Resumen</p><div class="metrics m3"><div class="metric"><div class="v">54</div><div class="l">Publicaciones</div></div><div class="metric"><div class="v">1.147</div><div class="l">Citas</div></div><div class="metric"><div class="v">18</div><div class="l">Índice h</div></div><div class="metric"><div class="v">22</div><div class="l">Índice i10</div></div><div class="metric"><div class="v">9</div><div class="l">Proyectos</div></div><div class="metric"><div class="v">12</div><div class="l">Aportaciones a eventos</div></div></div><hr><p class="eyebrow" style="margin-bottom:10px">Publicaciones por año</p><div class="chart" id="chart"></div>
+            <div class="axis"><span>2011</span><span>2018</span><span>2025</span></div></section>
+<section class="card"><p class="eyebrow">Líneas de investigación</p><div class="li"><span class="name">Síntesis asistida por microondas</span><span class="c">8 artículos</span></div>
+            <div class="li"><span class="name">Grafeno y aplicaciones</span><span class="c">7 artículos</span></div>
+            <div class="li"><span class="name">Estructuras cristalinas</span><span class="c">7 artículos</span></div>
+            <div class="li"><span class="name">Hidrogeles y aplicaciones</span><span class="c">3 artículos</span></div></section>
+<section class="card">
+            <p class="eyebrow">Colaboradores frecuentes</p>
+            <div class="li"><span class="name">Verónica León</span><span class="c">11 obras</span></div>
+            <div class="li"><span class="name">Julio Pérez Alonso</span><span class="c">8 obras</span></div>
+            <div class="li"><span class="name">Marta Soto</span><span class="c">6 obras</span></div>
+          </section>
+</aside>
+</div>
+
+      <div class="note"><b>Mockup con datos ficticios.</b> Estructura, cabecera, pestañas y tarjetas replican la vista real de /teams/:slug.
+        Se han omitido DNI y fecha de nacimiento (solo visibles para revisores). Citas, índice h/i10, colaboradores y líneas de investigación no existen hoy en el modelo.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const data=[1,1,1,3,2,1,8,7,7,1,3,5,5,1,2,1,5], max=Math.max(...data), el=document.getElementById('chart');
+  data.forEach((v,i)=>{const d=document.createElement('div');d.className='col';d.style.height=(v/max*100)+'%';d.dataset.tip=(2011+i)+': '+v;el.appendChild(d);});
+  if (matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark');
+</script>
+</body>
+</html>
