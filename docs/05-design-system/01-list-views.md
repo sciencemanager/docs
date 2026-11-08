@@ -296,7 +296,7 @@ grep -rnE "text-\[1[0-1]px\]" src
 
 Every PR in steps 1–8 follows the checklist in section 10.
 
-**Status (2026-11-08)** — steps 1, 2, 7 and 8 are done. Step 6 is done for Research Stays, Employment Records and Academic Direction (full), and partially for Projects, Publications and the other lists (search box and filter toggle only; their panels are pending). Shared pieces: `StatusBadge`, `ListSearchInput`, `FilterChip` / `ActiveFilterChips`, `FilterPanel`, `ResponsiveTable` / `ListCard`; the living examples are in the admin UI reference ("List views"). `PIAvatarStack` keeps drawing its own `AvatarImage` (its `avatarSrc` is already resolved) and now uses a 6px overlap. Full record and the pending list in `memories/ACADEMIC_DIRECTION_REDESIGN_20261108.md`.
+**Status (2026-11-08)** — steps 1, 2, 7 and 8 are done. Step 6 is done for Academic Direction, Research Stays, Employment Records and Projects; Publications, Events, Patents, Book chapters, Team, Infrastructure and the admin lists only have the shared search box (panels, active filters and cards pending); Group Reports is not started. Shared pieces: `StatusBadge`, `ListSearchInput`, `FilterChip` / `ActiveFilterChips`, `FilterPanel`, `ResponsiveTable` / `ListCard`, `ViewToggle`, `ColumnPicker`; the living examples are in the admin UI reference ("List views"). The process, the component catalogue, the validation checklist and the lessons learned are in `memories/LIST_VIEWS_PLAYBOOK_20261108.md`.
 
 ---
 

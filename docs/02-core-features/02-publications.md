@@ -10,11 +10,11 @@ El módulo **Publicaciones** reúne todos los artículos científicos del grupo.
 
 ## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
-Accede desde **Investigación → Publicaciones**. La tabla muestra, por este orden, el **título**, los **autores**, la **revista** (abreviada), el **año**, las **citas** y la **fecha de creación**. Por defecto se ordena por año descendente y, dentro de cada año, de la más reciente a la más antigua. Los títulos se muestran completos, en varias líneas si hace falta, y un candado verde junto al título indica que la publicación tiene **acceso abierto**.
+Accede desde **Investigación → Publicaciones**. La tabla muestra, por este orden, el **título**, los **autores**, la **revista** (abreviada), el **año** y las **citas**. Otras columnas (**Tipo**, **DOI** y **Fecha de creación**) se pueden activar con el botón **Columnas**. Por defecto se ordena por año descendente y, dentro de cada año, de la más reciente a la más antigua. Los títulos se muestran completos, en varias líneas si hace falta, y un candado verde junto al título indica que la publicación tiene **acceso abierto**.
 
-Los **autores** aparecen como avatares con sus iniciales, en su orden de firma: se ven los tres primeros y un círculo **+N** agrupa al resto (pasa el ratón por encima para ver los nombres). Las **fechas** se muestran en el formato del idioma de la interfaz.
+Los **autores** aparecen como avatares con sus iniciales, en su orden de firma: se ven los tres primeros y un círculo **+N** agrupa al resto: al pasar el ratón por encima (o enfocarlo con el teclado) se listan solo las personas que faltan. Las **fechas** se muestran en el formato del idioma de la interfaz.
 
-La **misma tabla** se usa en este listado y en la pestaña [Publicaciones del perfil de un miembro](./10-member-profile.md#publicaciones); solo cambia qué publicaciones contiene.
+La **misma tabla** (y las mismas tarjetas) se usa en este listado y en la pestaña [Publicaciones del perfil de un miembro](./10-member-profile.md#publicaciones); solo cambia qué publicaciones contiene.
 
 ![Listado de publicaciones (vista de User)](/img/docs/publications/publications-list-user.png)
 *Listado de publicaciones del grupo, vista de User.*
@@ -26,19 +26,26 @@ La **misma tabla** se usa en este listado y en la pestaña [Publicaciones del pe
 *Vista de Manager.*
 
 - **Ordenar:** los encabezados **Título**, **Revista**, **Año**, **Citas** y **Fecha de creación** son pulsables (la columna **Autores** no). Cada clic cambia el orden en este ciclo: **descendente → ascendente → sin orden** (vuelve al orden por defecto). El orden se aplica a todo el listado, no solo a la página visible. En **Citas**, las publicaciones sin dato aparecen siempre al final.
-- **Búsqueda rápida por título o DOI:** el cuadro superior («Buscar por título o DOI…») filtra mientras escribes. Puedes escribir parte del título o un DOI completo o parcial (por ejemplo `10.1038`).
+- **Búsqueda rápida por título o DOI:** el cuadro superior («Buscar por título o DOI…») filtra mientras escribes; el botón **×** lo vacía. Puedes escribir parte del título o un DOI completo o parcial (por ejemplo `10.1038`). El buscador y el botón **Filtros** comparten la misma fila.
+- **Columnas:** el botón **Columnas** muestra u oculta **Tipo**, **DOI** y **Fecha de creación**; **Restablecer** vuelve a las columnas por defecto. Tu elección se recuerda en este navegador.
+- **Tabla o tarjetas:** el selector **Tabla / Tarjetas** cambia cómo se ve cada publicación. En la vista de tarjetas aparece un selector **Ordenar por**. En el móvil el listado se muestra siempre como tarjetas y **Nueva publicación** queda fijo al pie de la pantalla.
 - **Paginación:** al pie de la tabla eliges cuántas filas ver por página (10, 25, 50 o 100).
 - **Qué se puede pulsar:** solo dos columnas son enlaces. El **título** abre la ficha de la publicación y la **revista** abre la [ficha de la revista](./09-journals.md#consultar-una-revista). El resto de celdas (autores, año, citas y fecha) y la fila en sí no responden al clic. El menú de tres puntos de la fila ofrece **Ver**, **Editar** y **Enlace externo** al DOI.
 
 ### Filtros avanzados
 
-El botón de filtros (icono de controles) despliega un panel con cuatro selectores de selección múltiple:
+El botón **Filtros** despliega un panel con selectores de selección múltiple (en cada uno, «Todos» significa que no se filtra):
 
-- **Autores** y **Revistas**: se buscan escribiendo el nombre.
-- **Años**: lista de años desde la publicación más antigua hasta el año actual.
+- **Tipo:** artículo, revisión, comunicación de congreso, capítulo de libro, preprint y el resto de tipos.
+- **Autores** y **Revistas**: se buscan escribiendo el nombre. En el perfil de un miembro no hay filtro de autores.
 - **Proyectos**: se buscan por código o título.
+- **Años**: lista de años desde la publicación más antigua hasta el año actual.
+- **Registrada desde:** una fecha; solo se muestran las publicaciones registradas ese día o después.
+- **Ordenar por** (solo en el móvil): por año, más citadas, título o registradas recientemente.
 
-Pulsa **Aplicar filtros** para confirmarlos; **Limpiar filtros** los elimina. El botón de filtros muestra el número de filtros activos.
+Pulsa **Aplicar filtros** para confirmarlos, **Cancelar** para cerrar sin cambios y **Limpiar filtros** para quitarlos. El botón **Filtros** muestra el número de filtros activos del panel.
+
+Bajo el panel, la fila **Activos** muestra un botón por cada filtro aplicado («Tipo: Artículo ×»). Pulsa la **×** para quitar solo ese filtro o **Limpiar todo** para quitarlos todos, incluida la búsqueda.
 
 ![Listado de publicaciones con el panel de filtros desplegado](/img/docs/02-core-features/07-publications-filters.png)
 *Panel de filtros abierto sobre el listado.*
@@ -57,6 +64,8 @@ Los filtros, la búsqueda, el orden y la página quedan reflejados en la **direc
 | `author` (repetible) | `?author=01a03ae4-04d3-7957-aa01-047409558f8e` | Filtra por el identificador (UUID) de uno o varios autores |
 | `journal` (repetible) | `?journal=<id-revista>` | Filtra por el identificador (UUID) de una o varias revistas |
 | `project` (repetible) | `?project=<id-proyecto>` | Filtra por el identificador (UUID) de uno o varios proyectos |
+| `type` (repetible) | `?type=article&type=review` | Filtra por uno o varios tipos de publicación |
+| `since` | `?since=2026-08-25` | Solo publicaciones registradas desde esa fecha (`AAAA-MM-DD`) |
 | `sort` | `?sort=createdAt:desc` | Orden `campo:dirección` (`asc` o `desc`). Campos: `year`, `title`, `journal.name`, `citationMetrics.citationsCount`, `createdAt` |
 | `page` | `?page=2` | Página del listado |
 | `pageSize` | `?pageSize=50` | Filas por página: 10, 25, 50 o 100 |
