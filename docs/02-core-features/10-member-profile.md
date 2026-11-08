@@ -18,9 +18,9 @@ El nombre en la dirección es un identificador legible (*slug*). Los enlaces ant
 
 ## 🧱 Estructura del perfil \{#estructura-del-perfil}
 
-Bajo el nombre y la ruta de navegación aparece una barra con el avatar de la persona y nueve pestañas, más una décima, **CV**, que solo ven la propia persona, los **Reviewer** y los **Manager**.
+Bajo la cabecera con el avatar y el nombre de la persona, las secciones se abren desde el menú **⋮** (a la derecha del nombre): nueve secciones, más una décima, **CV**, que solo ven la propia persona, los **Reviewer** y los **Manager**. La propia persona también tiene **CV** en el menú lateral, bajo *Mi cuenta*.
 
-| Pestaña | Qué contiene | Dirección |
+| Sección | Qué contiene | Dirección |
 |---|---|---|
 | **Detalles** | Datos personales e identificadores. | `/teams/carlos-garcia` |
 | **Perfil académico** | Titulaciones y tesis. | `…/academic-profile` |
@@ -52,9 +52,33 @@ flowchart LR
     P --> T10["📄 CV"] --> M10(["Currículum (CV)"])
 ```
 
+### Cabecera: avatar, nombre y categoría \{#cabecera}
+
+Bajo el nombre, junto al avatar, se muestra la **categoría** de la vinculación vigente de la persona (por ejemplo «Investigador Postdoctoral», «Personal de Gestión de Proyectos» o «Catedrático de Universidad»): es el mismo valor que la columna **Categoría** de la tabla de Equipo. Si no tiene ninguna vinculación en vigor, no se muestra nada.
+
 ## 🧾 Detalles \{#detalles}
 
-Reúne los datos de contacto y los identificadores científicos de la persona: **Nombre**, **Apellidos**, **Segundo apellido**, **Correo electrónico**, **ORCID**, **ResearcherID (WOS)**, **Director / supervisor**, **Sexenios** y **Sexenios de transferencia**. El ORCID y el ResearcherID son enlaces a sus perfiles públicos.
+Es la portada del perfil, en **dos columnas** (con menos de 1100 px de ancho se apilan en una). Cada cifra indica de dónde procede.
+
+**Columna izquierda**
+
+- **Datos personales:** **Nombre**, **Apellidos**, **Segundo apellido**, **Correo electrónico**, **ORCID**, **ResearcherID (WOS)**, **Director / supervisor**, **Institución actual** (la afiliación actual según el proveedor; si hay varias, las demás aparecen al pasar el ratón sobre «+N») y un enlace **Ver perfil** al perfil de autor en OpenAlex. En una fila a todo el ancho, **Firmas de autor**: todos los nombres con los que esta persona figura como autora en publicaciones y trabajos (los registros de *Autores* vinculados a su usuario), separados por «·».
+- **Publicaciones más relevantes:** tres publicaciones de Science Manager con año, autores, revista, citas, cuartil JCR, JIF, tipo y *Open Access*. Arriba tienes un **buscador** y los desplegables de **Año**, **Tipo** (solo los valores que esa persona tiene) y orden (**Más relevantes: citas**, **Más recientes**, **Más antiguas**). **Ver todas las publicaciones →** abre la sección Publicaciones.
+- **Sexenios:** contadores de **Investigación** y **Transferencia** del perfil; la zona de progreso muestra **Próximamente**.
+
+**Columna derecha**
+
+- **Resumen** (junto al título hay un icono de información con el detalle de las cifras): **Publicaciones**, **Citas**, **Índice h**, **Índice i10** (si el proveedor lo da), **Proyectos** y **Eventos**. Publicaciones, citas e índices son del proveedor elegido por el grupo (hoy OpenAlex); proyectos y eventos, de Science Manager. El icono de información explica de cuántas obras salen las citas («Citas 1.128 · de 54 obras registradas en OpenAlex») y que OpenAlex y Science Manager pueden contar obras distintas: en el tooltip se ven **ambas** cifras. Debajo, un gráfico de barras de **publicaciones por año** (al pasar el ratón por una barra aparece «año: n»; el eje empieza en el primer año que devuelve el proveedor). **Ver evolución de citas** abre, solo al pulsarlo, la evolución a partir del historial de actualizaciones (hacen falta al menos dos). Al pie: «Fuente: OpenAlex · sincronizado el …» y **Ver en OpenAlex**.
+- **Líneas de investigación:** los temas del autor según el proveedor, con el número de obras. Se ven **tres**; si hay más aparece **Ver todas (N)**, que despliega el resto, y **Ver menos**, que vuelve a mostrar tres.
+- **Instituciones colaboradoras:** con su número de obras. Igual que las líneas de investigación: **tres** y un botón **Ver todas (N)** / **Ver menos**.
+
+El botón **Actualizar** de la tarjeta Resumen solo lo ven los **Manager** y **Admin**, y sincroniza a esa persona. Los miembros no pueden sincronizarse a sí mismos (el servidor lo rechaza con 403); cualquier miembro del grupo ve los resultados.
+
+:::info[Cuando no hay datos del proveedor]
+
+La tarjeta Resumen nunca muestra ceros que parezcan datos. Explica el motivo: **no hay ORCID registrado** (el ORCID es la única forma de identificar a la persona en OpenAlex), **las métricas de autor no están activadas** en el grupo, **todavía no se ha sincronizado**, **no se ha encontrado ningún autor** con ese ORCID, o **la última actualización falló**. Si hay una actualización anterior correcta, se muestra esa. Los contadores de Science Manager sí se ven siempre. Cómo se activa y se lanza la sincronización: [Conexiones con terceros](../04-administration/05-group-settings.md#citas-de-openalex).
+
+:::
 
 ![Pestaña Detalles del perfil de Carlos García López](/img/docs/02-core-features/56-member-profile-details.png)
 *Pestaña **Detalles** vista por un usuario sin rol de revisión: no se muestran nacionalidad, DNI ni fecha de nacimiento.*

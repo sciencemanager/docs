@@ -108,6 +108,24 @@ Si no tienes permiso, el botón correspondiente no aparece.
 
 :::
 
+### Tipo, resumen, instituciones y temas \{#tipo-resumen-instituciones-y-temas}
+
+En la ficha de detalle, la cabecera de la publicación muestra, cuando existen:
+
+- Una **etiqueta con el tipo** (Artículo, Revisión, Capítulo, Preprint…) junto al año. Al pasar el ratón indica su origen: *Crossref*, *OpenAlex* o *indicado manualmente*. Crossref da un tipo inicial; OpenAlex puede afinarlo si la conexión del grupo está verificada. **Un tipo elegido a mano nunca se sobrescribe.**
+- El **Resumen**, debajo del DOI, limitado a **3 líneas**. Si es más largo aparece **Ver más**, que despliega el texto completo, y **Ver menos**, que lo vuelve a contraer. Viene de Crossref si el editor lo depositó y, si no, de OpenAlex; nunca sustituye a uno escrito a mano.
+- Las **Instituciones** asociadas a la obra, justo debajo del resumen, como lista separada por comas (unión sin duplicados de las afiliaciones de sus autores en OpenAlex).
+
+En la tarjeta lateral aparecen los **Temas** (con el tema principal y su dominio › campo › subcampo) y las **Palabras clave**, solo desde OpenAlex y sin puntuaciones. Las partes sin datos no se muestran. Instituciones, temas y palabras clave solo se rellenan si el grupo tiene la [conexión con OpenAlex verificada](../04-administration/05-group-settings.md#citas-de-openalex).
+
+El campo **Resumen** está siempre disponible en el alta por DOI, en el alta manual y en la edición. Si Crossref lo trajo, aparece rellenado con la indicación «Cargado desde Crossref. Puedes editarlo.»; si no, queda vacío para que lo escribas tú (opcional).
+
+:::info[El tipo es obligatorio]
+
+Al crear una publicación hay que indicar su **Tipo**. En el alta por DOI se rellena con el que da Crossref y puedes cambiarlo; si Crossref no da uno utilizable, elígelo de la lista. Al editar una publicación antigua sin tipo también se te pedirá.
+
+:::
+
 ### Importar desde un DOI (recomendado)
 
 Pulsa **Nueva Publicación**. El formulario empieza con la sección **Importación desde DOI**.
@@ -118,7 +136,7 @@ Pulsa **Nueva Publicación**. El formulario empieza con la sección **Importaci�
 1. Escribe el DOI (por ejemplo `10.1038/s41586-020-2649-2`) y pulsa **Obtener información de Crossref**.
 2. Science Manager comprueba primero que el DOI no exista ya en el grupo y, si es nuevo, consulta Crossref.
 3. Con los datos importados aparecen el resto de secciones: **Proyectos Asociados**, **Autores**, **Información Básica** (título, año, volumen, número y páginas, no editables) y **Acceso y Enlaces**.
-4. Selecciona al menos un proyecto, revisa los autores y pulsa **Guardar Publicación**.
+4. Revisa o elige el **Tipo** (obligatorio), selecciona al menos un proyecto, revisa los autores y pulsa **Guardar Publicación**. Si la conexión con OpenAlex del grupo está verificada, el enriquecimiento (instituciones, temas, palabras clave) se completa en segundo plano tras guardar; un fallo ahí nunca impide guardar.
 
 :::warning[Reglas del alta por DOI]
 
@@ -159,7 +177,7 @@ flowchart TD
 Los **Managers** ven en la sección de DOI el enlace **Creación manual (sin DOI)**, pensado para publicaciones que no tienen DOI o que Crossref no encuentra.
 
 ![Formulario de creación manual de publicación](/img/docs/02-core-features/10-publication-new-manual.png)
-*Formulario manual: solo el **Título** y al menos un **Proyecto asociado** son obligatorios.*
+*Formulario manual: el **Título**, el **Tipo** y al menos un **Proyecto asociado** son obligatorios.*
 
 Además de los campos de importación, aquí se rellenan a mano el volumen, número, páginas, año, URL, la revista (elegida del catálogo o escribiendo el nombre de una nueva), los autores y los enlaces.
 
