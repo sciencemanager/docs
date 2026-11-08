@@ -80,6 +80,15 @@ Una clave gratuita permite aproximadamente **1 $ de uso al día**, que se reinic
 - Al pulsarlo aparece un aviso del tipo «N lotes en cola; se ejecutan en segundo plano». El proceso **continúa en segundo plano**: puedes cerrar la pantalla y mientras dure el botón muestra **Actualizando…**. Cuando termina, la fecha de última actualización cambia.
 - Solo puede haber una actualización a la vez por grupo. Si pulsas mientras hay otra en curso, se muestra «Ya hay una actualización en curso» y no se lanza nada nuevo.
 
+**Métricas del perfil de autor**
+
+Con la conexión verificada, la tarjeta de OpenAlex muestra la sección **Métricas del perfil de autor**:
+
+- Indica cuántos miembros tienen **ORCID** y cuántos no. **El ORCID es la única forma de identificar a un miembro en OpenAlex**: quien no lo tenga se omite y no se guarda nada de esa persona (no hay búsqueda por nombre ni se puede introducir a mano el identificador de OpenAlex).
+- El botón **Actualizar métricas de autores** pone en cola a todos los miembros con ORCID del grupo. Al pulsarlo aparece «N miembros en cola; M sin ORCID omitidos». Solo puede haber una actualización a la vez por grupo («Ya hay una actualización de autores en curso»).
+- **Solo los Managers del grupo pueden lanzarla**; los miembros no pueden sincronizarse a sí mismos. Cada actualización consulta unas tres peticiones por miembro, espaciadas para respetar el límite de OpenAlex.
+- Cada actualización **añade una nueva fotografía** (obras, citas, índice h, i10, citas por año, líneas de investigación e instituciones) sin borrar las anteriores. Los intentos fallidos o sin coincidencia se conservan solo como registro y **nunca se muestran**: el perfil usará siempre la última actualización correcta.
+
 :::note[Si la clave no es válida o se elimina]
 
 Si la clave es incorrecta, ha caducado o la borras después de lanzar la actualización, OpenAlex rechaza las peticiones y esa actualización **no modifica ninguna cita**: se conservan los datos anteriores. Guarda una clave válida y vuelve a pulsar **Actualizar citas (OpenAlex)**. Si pulsas el botón sin clave guardada, aparece «No hay clave de API configurada». Si se agota el presupuesto diario, vuelve a intentarlo después de medianoche UTC.

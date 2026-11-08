@@ -1,6 +1,6 @@
 # PLAN_ACTION_MEMBER_PROFILE_REDESIGN – Provider-backed member profile (OpenAlex first)
 
-**Date:** 2026-11-07 · **Version:** 6 · **Status:** Phase 0 DONE (§9.1), Phase 1 DONE (config), Phase 2 DONE in code (publication enrichment); backfill still to be run per environment. Phases 3–4 pending.
+**Date:** 2026-11-08 · **Version:** 7 · **Status:** Phases 0–4 DONE and committed on `feature/profile-improvement` (core, group, docs). Visually checked in the dev browser with injected sample data; **no Playwright E2E yet** and the publication backfill has **not been run** on any real environment. See §12 for the next steps.
 **Scope:** `core/` (Symfony 7.1 · API Platform 3 · PostgreSQL 16) and `group/` (React 18 · TS · Tailwind). `infra/` is not touched.
 **Branches:** `feature/profile-improvement` in `core`, `group` and `docs` (already created).
 **Reference mockup:** [`mockups/member-profile-openalex.html`](mockups/member-profile-openalex.html) (fictitious data)
@@ -175,7 +175,7 @@ Tagged services + a small registry. One implementation today on purpose (Scopus/
 | B4b | `InstitutionUpsertService` (rules in §4.4), used by B4 and B7 | `Service/Institution/` |
 | B5 | **One-off command** `app:openalex:backfill-publications [--group=slug] [--dry-run]`: for every existing publication with a DOI, fetch and store the OpenAlex-only fields (institutions, topics, keywords) and refine `type`/fill `abstract` per the precedence rule. Run **after** the Crossref backfill (B3a). Idempotent, resumable, honours the 1 req/s throttle, group key. Uses DOI batches of 100. Publications without a match keep `type` NULL and are listed in the report for manual completion | `Command/` |
 | B6 | **New publications:** after the Crossref step in `DoiImportService`, if the group's `openalex_publication_sync_enabled` is on and the connection is verified, dispatch an async Messenger job to enrich that DOI. A failure or timeout never blocks saving the publication | `Service/DoiImportService.php`, `Message/` |
-| B7 | Author sync: `AuthorMetricsProvider` + registry + `OpenAlexAuthorMetricsProvider`; message `SyncAuthorMetricsMessage(profileId, provider)` (no key inside); handler appends a snapshot. OpenAlex path: ORCID → author (+ current institutions) → `group_by` collaborated institutions (2 requests per member). No ORCID → skipped | `Service/AuthorMetrics/`, `Message/`, `MessageHandler/` |
+| B7 | Author sync: `AuthorMetricsProvider` + registry + `OpenAlexAuthorMetricsProvider`; message `SyncAuthorMetricsMessage(profileId, provider, groupId)` (no key inside; groupId added so pending messages can be counted per group); handler appends a snapshot. OpenAlex path: ORCID → author (+ current institutions) → `group_by` collaborated institutions → one batched institution-detail request (3 requests per member; the spike showed `group_by` has no ROR/country). No ORCID → skipped | `Service/AuthorMetrics/`, `Message/`, `MessageHandler/` |
 | B8 | Manager-only triggers: `POST /api/admin/author-metrics/{slug}/{provider}/sync` (group) and `…/members/{userId}/sync`; `GET …/status`. 400 `provider_not_enabled`, 409 while pending. Role: manager of that group (`GroupAccessResolver`) | `Controller/` |
 | B9 | `GET /api/members/{userId}/research-profile` → `{provider, metrics:{worksCount, citationsCount, hIndex, i10Index, byYear, institutions, topics, syncedAt}, system:{publications, projects, projectsAsPi, events}}`; latest `ok` snapshot of the display provider; any group member, group-scoped voter, no PII; `status` when nothing synced | provider + voter |
 | B10 | Publications: order by citations (and JIF) for the top-3 query; expose `type`, `abstract`, institutions on the publication resource; **`type` required on create/update validation**, accepted values = `PublicationType` |  `Publication.php`, `PublicationRepository.php` |
@@ -206,12 +206,12 @@ Tagged services + a small registry. One implementation today on purpose (Scopus/
 
 | Phase | Content | Ships alone? |
 |-------|---------|--------------|
-| **0 – Spike (½ day)** | Live OpenAlex calls for 2–3 members and a few DOIs: confirm shapes of author `affiliations`/`last_known_institutions`, institution fields (alt names, ROR, homepage, type), work `type` values, `summary_stats`, `counts_by_year`, `topics`, `keywords`, `primary_topic`, `abstract_inverted_index`, `authorships`, institutions `group_by`; ORCID coverage; compare with the public profile | no |
-| **1 – Config** | B1 (config part), B2, F1 | yes |
-| **2 – Publication enrichment (WS-A)** | B1 (publication part), B3, B4, B6, B10, F2; then run **B5 backfill once** per group | yes |
-| **3 – Author sync (WS-B)** | B1 (snapshots), B7, B8 + tests; run first manual sync per group | yes (no UI) |
-| **4 – Profile UI** | B9, F3–F9 | yes |
-| **5 – Sexenios** | Replaced later by `PLAN_ACTION_SEXENIOS.md`; this release ships counters + "Próximamente" | included in 4 |
+| **0 – Spike (½ day) — DONE** | Live OpenAlex calls for 2–3 members and a few DOIs: confirm shapes of author `affiliations`/`last_known_institutions`, institution fields (alt names, ROR, homepage, type), work `type` values, `summary_stats`, `counts_by_year`, `topics`, `keywords`, `primary_topic`, `abstract_inverted_index`, `authorships`, institutions `group_by`; ORCID coverage; compare with the public profile | no |
+| **1 – Config — DONE** | B1 (config part), B2, F1 | yes |
+| **2 – Publication enrichment (WS-A) — DONE in code; backfill pending per environment** | B1 (publication part), B3, B4, B6, B10, F2; then run **B5 backfill once** per group | yes |
+| **3 – Author sync (WS-B) — DONE; first sync pending per environment** | B1 (snapshots), B7, B8 + tests; run first manual sync per group | yes (no UI) |
+| **4 – Profile UI — DONE** | B9, F3–F9 | yes |
+| **5 – Sexenios — counters + "Próximamente" shipped** | Replaced later by `PLAN_ACTION_SEXENIOS.md`; this release ships counters + "Próximamente" | included in 4 |
 
 **Deploy order:** `core` (migration, then **restart the messenger worker**, it is long-lived), then `group`. Run the backfill after the deploy of Phase 2. Each phase ships its `docs/docs/` update in the same commit.
 
@@ -281,3 +281,23 @@ Facts to verify in the Phase 0 spike (they can adjust field names or the mapping
 | `counts_by_year` only covers recent years | Axis starts at first returned year; footnote |
 | API key leakage | Re-read per run; never in messages, logs, exception text or the test endpoint response |
 | `TeamMemberDetailView` size | F3 first; a PR that raises its line count is rejected |
+
+---
+
+## 12. Status and next steps (2026-11-08)
+
+**Delivered beyond the original plan** (agreed during review): verification is the only gate (no per-feature toggles); display provider has its own card; publication detail reworked (type pill next to the year, abstract clamped to 3 lines, institutions as a comma list, topics/keywords without scores); editable abstract in all publication forms; profile header shows the employment category; research lines and collaborating institutions show 3 with "show all"; author signatures (all `Author` names linked to the member) and current institution inside personal data; summary card follows the mockup with an info tooltip explaining OpenAlex vs Science Manager counts; `type` filter on the publications list; team-member detail endpoints carry `currentEmploymentCategory`.
+
+**Known deviations from this plan:** `type` is required on create but not on PATCH until the backfill reports no gaps; author sync makes 3 requests per member (the `group_by` key has no ROR/country); `SyncAuthorMetricsMessage` also carries `groupId`; "Exportar BibTeX" from the mockup was not built; collaborated institutions are capped at 50 at sync time.
+
+**Next steps**
+
+1. **Review the commits and decide the release.** Deploy order: `core` (migrations `Version20261107100000`, `…221652`, `…234144`), **restart the messenger worker** (long-lived: new handlers and routing), then `group`.
+2. **Per environment, after deploy:** run `app:enrich-publications-crossref`, then `app:openalex:backfill-publications --dry-run` and the real run per group (runbook in `core/docs/OPENALEX_CITATIONS.md` §8.1); in *Third-party connections* save the key, **test the connection** and click **Update author metrics**.
+3. **Measure real ORCID coverage (check S5)** from `GET /api/admin/author-metrics/{slug}/openalex/status` before the first sync; chase members without ORCID.
+4. **Complete missing publication types** listed by the backfill report; when it shows zero gaps, ship the migration that makes `publications.type` NOT NULL and enforce `type` on PATCH too.
+5. **Playwright E2E** (plan §8): alignment ≥ 1100 px and stacking below, dark mode, "View all" navigation, publication detail with the new fields, manager-only update button. Also check the profile at tablet/phone widths and in dark mode (only desktop light was checked by eye).
+6. **Index the work:** Serena memory for decisions D3, D7, D10–D14 and the deviations above, and update the `codebase-memory-mcp` graph (AGENTS.md step 5) — not done yet.
+7. **Pre-existing, unrelated:** `idx_documents_storage_path_prefix` shows as schema drift in `doctrine:schema:update` (Doctrine does not know the `text_pattern_ops` index); the 5 old failed `GenerateGroupReportSnapshotMessage` rows from September are still in the failed queue.
+8. **Later:** sexenios progress bar when `PLAN_ACTION_SEXENIOS.md` lands; a second provider (Scopus/WoS) plugs into `AuthorMetricsProvider` and the display-provider setting; link the free-text institution fields of other entities to the institution master.
+
