@@ -10,13 +10,28 @@ El módulo **Proyectos** es el registro histórico completo del grupo: incluye l
 
 ## 🔎 Listado, búsqueda y filtros \{#listado-búsqueda-y-filtros}
 
-Accede desde **Investigación → Proyectos**. La tabla muestra el título con su entidad financiadora, las fechas y el código del proyecto en una misma línea bajo el título (`inicio - fin | código`), el investigador principal (IP), el **Estado**, el importe y el avance temporal de cada proyecto. Esta misma tabla aparece en la pestaña de proyectos de la ficha de cada miembro del equipo.
+Accede desde **Investigación → Proyectos**. La tabla muestra, para cada proyecto:
+
+- **Título:** es un enlace a la ficha. Debajo, la sigla de la entidad financiadora y el código del proyecto.
+- **IP:** el investigador principal, con su foto, avatar o color de perfil (con varios IP, el primero y «+N»).
+- **Fechas:** inicio y fin del proyecto.
+- **Estado:** *Activo* (en color), *Pendiente* (ámbar), *Denegado* (rojo), *No iniciado* y *Finalizado* (en gris).
+- **Importe:** el importe concedido si existe y, si no, el solicitado. Al pasar el ratón sobre un importe concedido se ve el solicitado.
+- **Avance** temporal.
+
+Esta misma tabla aparece en la pestaña de proyectos de la ficha de cada miembro del equipo.
 
 ![Listado de proyectos con el panel de filtros desplegado](/img/docs/02-core-features/03-projects-list-and-filters.png)
 *Listado de proyectos con el panel de filtros abierto.*
 
-- **Búsqueda rápida:** el cuadro superior filtra por **título** mientras escribes.
-- **Filtros avanzados:** el botón de filtros despliega un panel con **Entidad financiadora**, **Investigador**, **Año**, **Código** y **Estado** (pendiente / denegado / activo / no iniciado / finalizado). Pulsa **Aplicar filtros** para confirmarlos; **Limpiar** los elimina.
+- **Búsqueda rápida:** el cuadro superior filtra por **título** mientras escribes; el botón **×** lo vacía.
+- **Filtros rápidos:** los botones **Activos**, **Pendientes** y **Finalizados** filtran con un solo clic y se pueden combinar. Pulsa de nuevo para quitarlos.
+- **Más filtros:** despliega un panel con **Estado** (incluye *Denegado* y *No iniciado*), **Entidad financiadora**, **Investigador**, **Año** (de inicio), **Código** y, solo para administradores, **Mostrar eliminados**. Pulsa **Aplicar filtros** para confirmarlos, **Cancelar** para cerrar sin cambios y **Limpiar** para quitarlos. Dentro de un mismo filtro se admite más de un valor (por ejemplo, dos años); entre filtros distintos se cumplen todos a la vez.
+- **Filtros activos:** bajo el panel, la fila **Activos** muestra un botón por cada filtro aplicado («Año: 2025 ×»). Pulsa la **×** para quitar solo ese filtro o **Limpiar todo** para quitarlos todos, incluida la búsqueda por título.
+- **Enlace compartible:** los filtros quedan en la dirección web, así que puedes copiar el enlace de un listado ya filtrado. La pestaña de proyectos de un miembro no los guarda en la dirección.
+- **Columnas:** el botón **Columnas** permite mostrar u ocultar columnas extra: código, entidad financiadora, importe solicitado, área, modalidad, número de publicaciones y número de miembros del equipo. **Restablecer** vuelve a las columnas por defecto. Tu elección se recuerda en este navegador.
+- **Tabla o tarjetas:** el selector **Tabla / Tarjetas** cambia cómo se ve cada proyecto. La tarjeta reúne el estado, el título, la entidad y el código, el investigador principal, las fechas con el avance, el importe y el número de publicaciones y miembros.
+- **En el móvil** el listado se muestra siempre como tarjetas. El buscador y un único botón **Filtros** (con el número de filtros activos) ocupan una línea, y **Nuevo Proyecto** queda fijo al pie de la pantalla.
 - Los proyectos activos aparecen primero.
 - **Etiqueta de estado:** la calcula el servidor. Un proyecto **Pendiente** o **Denegado** muestra siempre esa etiqueta, sin tener en cuenta las fechas. Un proyecto **Aprobado** se muestra como **No iniciado** (aún no ha llegado la fecha de inicio), **Activo** (hasta el último día de ejecución incluido) o **Finalizado**. Las fechas se evalúan con la zona horaria de Madrid.
 - **Avance:** los proyectos Pendientes o Denegados muestran siempre un avance del 0 %.
