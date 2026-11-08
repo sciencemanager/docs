@@ -76,7 +76,7 @@ El botón **Actualizar** de la tarjeta Resumen solo lo ven los **Manager** y **A
 
 :::info[Cuando no hay datos del proveedor]
 
-La tarjeta Resumen nunca muestra ceros que parezcan datos. Explica el motivo: **no hay ORCID registrado** (el ORCID es la única forma de identificar a la persona en OpenAlex), **las métricas de autor no están activadas** en el grupo, **todavía no se ha sincronizado**, **no se ha encontrado ningún autor** con ese ORCID, o **la última actualización falló**. Si hay una actualización anterior correcta, se muestra esa. Los contadores de Science Manager sí se ven siempre. Cómo se activa y se lanza la sincronización: [Conexiones con terceros](../04-administration/05-group-settings.md#citas-de-openalex).
+La tarjeta Resumen nunca muestra ceros que parezcan datos. Explica el motivo: **no hay ORCID registrado** (el ORCID es la única forma de identificar a la persona en OpenAlex), **las métricas de autor no están activadas** en el grupo, **todavía no se ha sincronizado**, **no se ha encontrado ningún autor** con ese ORCID, o **la última actualización falló**. Si hay una actualización anterior correcta, se muestra esa. Los contadores de Science Manager sí se ven siempre. Cómo se activa y se lanza la sincronización: **Administración → Conexiones con terceros**.
 
 :::
 
