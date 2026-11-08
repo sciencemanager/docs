@@ -18,38 +18,45 @@ No es una lista aparte: reúne los estudios del **perfil académico** de cada pe
 
 Accede desde **Investigación → Dirección académica**. La tabla muestra, para cada trabajo:
 
-- **Personal:** el estudiante, con la titulación (Doctorado, Máster o Grado).
-- **Título del trabajo.**
-- **Directores:** avatares de los directores, con su rol (Director/a, Codirector/a o Tutor/a) al pasar el ratón.
-- **Estado:** *En curso*, *Finalizado* o *Abandonado*.
+- **Personal:** el estudiante, con su foto, avatar o color de perfil, y la titulación (Doctorado, Máster o Grado) como texto bajo su nombre.
+- **Título del trabajo:** es un enlace a la ficha.
+- **Directores:** avatares de los directores (con la foto o el avatar que cada persona eligió en su perfil) y su número, por ejemplo «2 directores». El rol (Director/a, Codirector/a o Tutor/a) aparece al pasar el ratón.
+- **Fechas:** inicio y fin del trabajo (por ejemplo «sept 2021 – ago 2026») y, debajo, el curso académico en que terminó. En un trabajo en curso solo se muestra el inicio.
+- **Estado:** *En curso* (en color), *Finalizado* o *Abandonado* (en gris).
 
 El orden lo fija el servidor: primero los trabajos con fecha de fin más reciente. Al pie eliges cuántas filas ver por página (10, 25, 50 o 100).
 
 ![Listado de dirección académica](/img/docs/02-core-features/19-academic-direction-list.png)
 *Registro de trabajos dirigidos en el grupo.*
 
-- **Búsqueda rápida:** el cuadro superior filtra por **título del trabajo** mientras escribes.
+- **Búsqueda rápida:** el cuadro superior filtra por **título del trabajo** mientras escribes; el botón **×** lo vacía.
+- **Filtros rápidos:** junto al buscador, los botones **Doctorado**, **Máster**, **Grado** y **En curso** filtran con un solo clic. Pulsa de nuevo para quitarlos.
 - **Abrir un trabajo:** pulsa sobre la fila para ver su ficha.
 - **Menú de tres puntos:** ofrece **Editar** y **Eliminar**; cada opción aparece deshabilitada si tu rol no la permite (ver [permisos](#permisos-requeridos)).
 
 ### Filtros avanzados
 
-El botón de filtros despliega un panel **Filtrar por** con siete selectores de selección múltiple:
+El botón **Más filtros** despliega un panel con selectores de selección múltiple (en cada uno, «Todos» significa que no se filtra):
 
 | Filtro | Qué filtra |
 |---|---|
 | **Personal** | Estudiante o investigador propietario del estudio |
-| **Titulación** | Doctorado, Máster o Grado |
 | **Estado** | En curso, Finalizado o Abandonado |
 | **Calificación** | Cum Laude, Sobresaliente, Notable, Bien, Aprobado, Suspenso o No aplica |
 | **Directores** | Autores que figuran como directores |
 | **Proyectos asociados** | Proyectos con los que se justifica el trabajo |
 | **Curso académico** | Cursos desde 2010; «2025/26» empieza en septiembre de 2025 |
 
-Pulsa **Aplicar filtros** para confirmarlos y **Limpiar filtros** para quitarlos. El botón muestra cuántos grupos de filtros hay activos. Los filtros quedan en la dirección web, de modo que puedes **compartir un listado ya filtrado** copiando el enlace.
+Pulsa **Aplicar filtros** para confirmarlos, **Cancelar** para cerrar el panel sin cambios y **Limpiar filtros** (a la izquierda) para quitarlos. El botón muestra cuántos grupos de filtros del panel hay activos. Los filtros quedan en la dirección web, de modo que puedes **compartir un listado ya filtrado** copiando el enlace.
+
+Bajo el panel, la fila **Activos** muestra un botón por cada filtro aplicado («Titulación: Doctorado ×»); pulsa la **×** para quitar solo ese filtro, o **Limpiar todo** para quitarlos todos.
 
 ![Panel de filtros desplegado](/img/docs/02-core-features/20-academic-direction-filters.png)
 *Panel de filtros abierto sobre el listado.*
+
+### En el móvil
+
+En pantallas estrechas la tabla se convierte en **tarjetas** (estudiante, título, estado, directores y fechas). El buscador y un único botón **Filtros** (con el número de filtros activos) ocupan una sola línea; **Titulación** pasa a ser un campo del panel. El botón **Añadir estudio** queda fijo al pie de la pantalla.
 
 ## 📄 Consultar un trabajo \{#consultar-un-trabajo}
 

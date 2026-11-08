@@ -251,10 +251,10 @@ Use this to decide how a change is rolled out. A change is only "done everywhere
 | Change from the mockup | Class | How it reaches other views |
 |---|---|---|
 | New status/attention tokens | A | Add tokens; nothing changes until a badge uses them |
-| Row hover neutral, header 12px caps, `tabular-nums` | A (opt-in) | Add a `variant="list"` (or `data-density`) prop on `Table` so existing 35 tables do not change silently; flip views one by one |
+| Row hover neutral, header 12px caps, `tabular-nums` | A (global, decided) | Edit the `Table` base in `ui/table.tsx`; all 35 consumers change at once. The same PR must include a visual review of every consumer (use the recipes in 9.4), and any table that must keep a different look opts out explicitly |
 | Interactive row (link in title, keyboard) | B | `TableRow interactive` + `RowLink` helper replace the per-view `onClick` markup |
 | Status pill, category text | B | `StatusBadge` / `CategoryLabel` replace `*BadgeClasses()` string helpers; the helpers become thin wrappers during migration |
-| Avatar neutral fallback, luminance-aware initials | B | Extend `UserAvatar` (do not create a second avatar); `PIAvatarStack` renders `UserAvatar` per person and stops using the hash |
+| Avatar neutral fallback, luminance-aware initials | B | Extend `UserAvatar` (do not create a second avatar); `PIAvatarStack` renders `UserAvatar` per person and stops using the hash. `initials` becomes **required** whenever any of `avatarKey` / `avatarUrl` / `avatarColor` is passed (decided); the 12 current consumers are updated in the same PR |
 | Avatar data on rows | API | `core` must expose `avatarKey`, `avatarUrl`, `avatarColor`, `userSlug` for the row owner; confirm they are in the director author serialization group |
 | Search input | B | `ListSearchInput` (label, clear, debounce, URL commit) replaces the 6 copies |
 | Toolbar with quick chips + More filters | B | `ListToolbar` slots: `search`, `quickFilters`, `moreFilters`, `primaryAction` |
@@ -285,15 +285,18 @@ grep -rnE "text-\[1[0-1]px\]" src
 
 ### 9.5 Migration order
 
-1. **Foundation (class A, no visible change):** add status tokens; add opt-in `variant="list"` to `Table`.
+1. **Foundation (class A):** add status tokens; apply the list header/row styles to the `Table` base. This one is **visible in all 35 tables**, so it ships with a visual review of each consumer and explicit opt-outs where a table must stay different.
 2. **Identity:** extend `UserAvatar` (neutral fallback, luminance), make `PIAvatarStack` use it; expose avatar fields in `core`. Verify Projects, Publications, the CV and the dashboard.
 3. **Badges:** introduce `StatusBadge` / `CategoryLabel`; convert `academicFormatting.ts` and `researchStayFormatting.ts` first, then the remaining 19 files.
 4. **List chrome:** `ListSearchInput`, `ListToolbar`, `FilterPanel`, `ActiveFilterChips`, `ListStates`.
 5. **Reference view:** rebuild Academic Direction on the shared pieces.
 6. **Roll out**, one view per PR, in this order: Research Stays → Employment Records → Projects → Publications → Dissemination → Group Reports → Admin lists.
 7. **Mobile:** `ResponsiveTable`, adopted first by Academic Direction, then per view.
+8. **Living guide:** split `UIDocsView.tsx` (1038 lines) into files under 500 lines and add the list-view examples (toolbar, filter panel, table, badges, avatars) so it demonstrates this guideline with the real components.
 
-Every PR in steps 3–7 follows the checklist in section 10.
+Every PR in steps 1–8 follows the checklist in section 10.
+
+**Status (2026-11-08)** — steps 1, 2, 7 and 8 are done. Step 6 is done for Research Stays, Employment Records and Academic Direction (full), and partially for Projects, Publications and the other lists (search box and filter toggle only; their panels are pending). Shared pieces: `StatusBadge`, `ListSearchInput`, `FilterChip` / `ActiveFilterChips`, `FilterPanel`, `ResponsiveTable` / `ListCard`; the living examples are in the admin UI reference ("List views"). `PIAvatarStack` keeps drawing its own `AvatarImage` (its `avatarSrc` is already resolved) and now uses a 6px overlap. Full record and the pending list in `memories/ACADEMIC_DIRECTION_REDESIGN_20261108.md`.
 
 ---
 
@@ -310,11 +313,31 @@ Every PR in steps 3–7 follows the checklist in section 10.
 
 ---
 
-## 11. Open decisions
+## 11. Decisions
 
-| Decision | Options | Recommendation |
+### Closed (2026-11-08)
+
+| Decision | Outcome | Consequence |
 |---|---|---|
-| Header style in base `Table` | Global change vs opt-in `variant="list"` | Opt-in, then flip the default when 80% of tables are migrated |
-| `UserAvatar` initials default | Signed-in email vs required `initials` prop in "other person" mode | Require `initials` whenever any avatar prop is passed |
-| Category text vs icon | Text only vs text + icon | Text only; add icons only where a view needs scanning by type |
-| Living style guide | Keep `UIDocsView` or move to Docusaurus | Split `UIDocsView` (1038 lines) and keep it as the executable reference, linking here |
+| Header style in base `Table` | **Global.** The list header/row styles go into the `Table` base | All 35 consumers change in one PR; each is reviewed visually; opt-outs are explicit (step 1 in 9.5) |
+| `UserAvatar` initials | **Required** whenever any avatar prop is passed | Removes the silent "signed-in user's email initials on someone else" error; update the 12 current consumers |
+| Category display | **Text only** | No icons by default; add one only when a view needs scanning by type |
+| Living style guide | **Keep `UIDocsView`**, split it, link it from here | Step 8 in 9.5; Docusaurus holds the rules, `UIDocsView` demonstrates them with real components |
+
+### Resolved by investigation: avatar data from the API
+
+Publications already shows user avatars through the same components (`toStackPerson` + `PIAvatarStack`). Academic Direction does not, because of serialization groups, not because of the UI:
+
+| Source | What exists today | Gap |
+|---|---|---|
+| Publications (directors/authors) | `Author::getAvatarKey/getAvatarUrl/getAvatarColor/getUserSlug` in `core/src/Entity/Author.php` are in group `publication:list`; `publicationsTableColumns.tsx` passes all four to `toStackPerson` | None |
+| Academic Direction, directors | `Author` is serialized under `academic-study:read`, but the four avatar getters are **not** in that group; `WorkDirectorAuthorRef` declares only `id`, `name`, `userId`; the table passes only `name` | Add the group to the four getters; extend the type; pass the fields |
+| Academic Direction, owner | `AcademicStudy` exposes only `userId` and `profileName` (the `User` object is deliberately never serialized: `nationalId`, `birthDate` and phone numbers) | Add four projected getters (`avatarKey`, `avatarUrl`, `avatarColor`, `userSlug`) following the `getProfileName()` pattern |
+
+Plan (no product decision needed):
+
+1. **`core`:** add `academic-study:read` to the four `Author` avatar getters; add the four owner getters to `AcademicStudy`; API test modelled on `ProjectListAvatarKeyApiTest`; note in `core/docs/`.
+2. **`group`:** extend `WorkDirectorAuthorRef` and `AcademicStudy`; pass the fields to `toStackPerson`; render the owner with the shared avatar component.
+3. **Verify query count** on the studies list (25 studies × 2 directors). The getters read the lazy `user` relation; Publications' approach to avoiding one query per author was not inspected, so measure before merging.
+
+Remaining check: confirm that exposing the four owner fields (no sensitive data) is acceptable under the existing "id and name only" owner projection policy.
